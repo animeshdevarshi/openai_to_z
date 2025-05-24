@@ -73,40 +73,57 @@ python -c "import keyring; keyring.set_password('openai', 'api_key', 'your-api-k
 echo "OPENAI_API_KEY=your-api-key-here" > .env
 ```
 
-### **Step 5: Download the Complete System**
+### **Step 5: Organized System Structure**
 
-All required files:
-
-**Core System Files:**
-- `enhanced_main_system.py` - Main orchestrator
-- `simple_region_config.py` - Region configurations  
-- `enhanced_data_acquisition.py` - Satellite data loading
-- `enhanced_data_processor.py` - Image processing & analysis
-- `enhanced_ai_analyzer.py` - AI interpretation
-- `enhanced_results_manager.py` - Checkpoint 2 compliance
-- `output_config.py` - Output organization
+**Core System Files (src/ directory):**
+- `main.py` - Main orchestrator
+- `src/config/region_config.py` - Region configurations  
+- `src/data/gee_data_loader.py` - Satellite data acquisition
+- `src/data/image_processor.py` - Image processing & analysis
+- `src/analysis/ai_archaeological_analyzer.py` - AI interpretation
+- `src/analysis/results_manager.py` - Checkpoint 2 compliance
+- `src/config/output_paths.py` - Output organization
 
 **Configuration Files:**
-- `simple_regions.json` - Available research regions
+- `regions.json` - Available research regions
 - `requirements.txt` - Python dependencies
 - `README.md` - This setup guide
+
+**Organized Structure:**
+```
+src/
+├── config/          # Configuration modules
+├── data/           # Data acquisition & processing
+└── analysis/       # AI analysis & results management
+
+outputs/            # Generated outputs (organized)
+├── archaeological_analysis/
+│   ├── ai_responses/      # AI analysis results
+│   ├── discoveries/       # Archaeological discoveries
+│   └── prompts_database/ # Prompt tracking
+├── competition_submissions/
+└── satellite_imagery/
+
+submissions/        # Competition submissions
+├── latest/        # Current active submission
+└── archive/       # Historical submissions
+```
 
 ### **Step 6: Create Directory Structure**
 
 ```bash
 # The system will auto-create these, but you can pre-create:
-mkdir -p outputs/images/regional
-mkdir -p outputs/images/zones  
-mkdir -p outputs/images/sites
-mkdir -p outputs/analysis_results
-mkdir -p outputs/submissions
+mkdir -p outputs/archaeological_analysis/{ai_responses,discoveries,prompts_database}
+mkdir -p outputs/satellite_imagery/{regional,zones,sites}
+mkdir -p outputs/competition_submissions
+mkdir -p submissions/{latest,archive}
 ```
 
 ### **Step 7: Test Installation**
 
 ```bash
 # Quick test - should show system status
-python enhanced_main_system.py
+python main.py
 
 # You should see:
 # 🏛️ Enhanced Amazon Archaeological Discovery System
@@ -116,31 +133,19 @@ python enhanced_main_system.py
 
 ## 🎮 **HOW TO RUN**
 
-### **Option 1: Complete Automatic Pipeline (Recommended)**
+### **Complete Automatic Pipeline (Recommended)**
 
 ```bash
-python enhanced_main_system.py
+python main.py
 
-# Select: "1. Run complete pipeline automatically"
-# Choose: 3 regions (recommended for first run)
-# Confirm: "y" to proceed
+# The system will automatically:
+# 1. Load multiple Amazon regions
+# 2. Process satellite imagery at multiple scales
+# 3. Run AI archaeological analysis
+# 4. Generate Checkpoint 2 submission
 # 
 # ⏱️ Takes 15-30 minutes
-# ✅ Produces complete Checkpoint 2 submission
-```
-
-### **Option 2: Step-by-Step Mode (For Learning)**
-
-```bash
-python enhanced_main_system.py
-
-# Select: "2. Step-by-step interactive mode"
-# Then run each step individually:
-# 1. Authentication
-# 2. Load Data  
-# 3. Processing
-# 4. AI Analysis
-# 5. Create Submission
+# ✅ Produces complete submission with enhanced discoveries
 ```
 
 ## 📊 **EXPECTED OUTPUTS**
@@ -149,17 +154,60 @@ After successful run, you'll have:
 
 ```
 outputs/
-├── images/
-│   ├── regional/        # 50km scale network maps
-│   ├── zones/          # 10km scale site detection  
-│   └── sites/          # 2km scale detailed sites
-├── analysis_results/
-│   ├── processed_data.json
-│   ├── enhanced_ai_analysis_*.json
-│   └── ai_analyses.json
-└── submissions/
-    ├── checkpoint2_submission_*.json  # Competition submission
-    └── checkpoint2_summary_*.md       # Human readable report
+├── archaeological_analysis/
+│   ├── ai_responses/
+│   │   └── enhanced_ai_analysis_*.json    # AI interpretation
+│   ├── discoveries/
+│   │   ├── processed_data.json           # Raw site data
+│   │   └── archaeological_discoveries_*.json # Enhanced discoveries
+│   └── prompts_database/
+│       └── ai_prompts_used_*.json        # Prompt tracking
+├── competition_submissions/
+│   └── checkpoint2_final/                # Competition files
+└── satellite_imagery/                    # Multi-scale imagery
+
+submissions/
+├── latest/
+│   ├── checkpoint2_submission_*.json     # Latest submission
+│   ├── checkpoint2_summary_*.md          # Human readable report
+│   ├── latest_submission.json → [symlink] # Quick access
+│   └── latest_summary.md → [symlink]     # Quick access
+└── archive/                              # Previous versions
+```
+
+## 🏛️ **Enhanced Archaeological Discoveries**
+
+Each discovery includes comprehensive context:
+
+```json
+{
+  "anomaly_id": "AMAZON_BR_Primary_001",
+  "geographic_context": {
+    "country": "Brazil",
+    "region_name": "Upper Xingu Basin, Brazil", 
+    "river_basin": "Xingu River Basin",
+    "nearest_major_city": "Canarana",
+    "administrative_level_1": "Mato Grosso",
+    "coordinates": "WGS84 ±10m precision"
+  },
+  "cultural_context": {
+    "primary_culture": "Upper Xingu cultural complex",
+    "time_period": "800-1500 CE (Late Period)",
+    "cultural_affiliation": "Upper Xingu cultural complex",
+    "regional_network_role": "Major ceremonial hub"
+  },
+  "site_classification": {
+    "tier": "Primary",
+    "function": "Upper Xingu plaza village complex", 
+    "complexity_level": "High complexity",
+    "preservation_status": "Well-preserved"
+  },
+  "research_potential": {
+    "excavation_priority": "High priority",
+    "scientific_significance": "Major contribution to Upper Xingu archaeology",
+    "conservation_urgency": "Standard monitoring needed"
+  }
+}
 ```
 
 ## 🎯 **QUICK START FOR ABSOLUTE BEGINNERS**
@@ -172,9 +220,9 @@ outputs/
 4. **Run**: `pip install -r requirements.txt`
 5. **Sign up for Google Earth Engine** (link above)
 6. **Wait for approval** (1-2 days)
-7. **Run**: `python enhanced_main_system.py`
-8. **Select option 1** (complete pipeline)
-9. **Wait 15-30 minutes** for results
+7. **Run**: `python main.py`
+8. **Wait 15-30 minutes** for results
+9. **Check**: `submissions/latest/` for your competition submission
 
 ## 🛠️ **TROUBLESHOOTING**
 
@@ -198,22 +246,24 @@ pip install -r requirements.txt
 # System will automatically use other regions
 ```
 
-**4. "AI analysis returned 0 discoveries"**
+**4. Import errors**
 ```bash
-# Normal - system uses mock AI responses for testing
-# Real OpenAI integration available with API key
+# Solution: Ensure you're in the project root directory
+cd /path/to/solution2
+python main.py
 ```
 
 ## 🏆 **CHECKPOINT 2 COMPLIANCE**
 
 This system automatically ensures:
 
-- ✅ **Two independent data sources** (Sentinel-2 + Sentinel-1)
-- ✅ **Five anomaly footprints** (archaeological sites)
-- ✅ **Dataset IDs logged** (automatic tracking)
-- ✅ **OpenAI prompts logged** (scale-specific prompts)
+- ✅ **Enhanced geographic context** (Country, region, river basin details)
+- ✅ **Cultural attribution** (Archaeological cultures, time periods)
+- ✅ **Five anomaly footprints** (Archaeological sites)
+- ✅ **Dataset IDs logged** (Automatic tracking)
+- ✅ **OpenAI prompts logged** (Scale-specific prompts)
 - ✅ **Reproducibility verified** (±50m tolerance)
-- ✅ **Discovery leverage** (pattern-based re-prompting)
+- ✅ **Discovery leverage** (Pattern-based re-prompting)
 
 ## 📚 **SCIENTIFIC BACKGROUND**
 
@@ -235,8 +285,8 @@ This system automatically ensures:
 
 1. Check Google Earth Engine is properly authenticated
 2. Verify all dependencies installed: `pip list`
-3. Run in step-by-step mode for detailed debugging
-4. Check system status: option 4 in main menu
+3. Check project structure: files should be in `src/` directory
+4. Verify you're running from project root: `python main.py`
 
 ## 🎉 **SUCCESS CRITERIA**
 
@@ -245,12 +295,18 @@ This system automatically ensures:
 ```
 🎉 CHECKPOINT 2 COMPLIANCE: ✅ PASS
 ✅ Submission package ready!
-📄 Files created:
+📄 Files created in submissions/latest/:
    • checkpoint2_submission_*.json
    • checkpoint2_summary_*.md
+   
+Enhanced discoveries include:
+✅ Geographic context (Country: Brazil/Peru/Colombia)
+✅ Cultural context (Archaeological cultures & time periods)
+✅ Site classification (Function, complexity, preservation)
+✅ Research potential (Excavation priority, conservation urgency)
 ```
 
-**This means you have a complete, competition-ready archaeological discovery submission!**
+**This means you have a complete, competition-ready archaeological discovery submission with detailed cultural context!**
 
 ---
 
