@@ -103,4 +103,49 @@ archaeological_env/
 *.zip
 
 # pytest cache
-.pytest_cache/ 
+.pytest_cache/
+
+# === PROJECT SPECIFIC EXCLUSIONS ===
+
+# Archive folder with old/backup files
+archive/
+
+# Temporary test files and scripts
+test_*.py
+temp_*.py
+*_temp.py
+
+# Generated satellite imagery files
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Large data processing outputs
+outputs/satellite_imagery/
+outputs/processed_data/
+
+# Keep structure but exclude large files in submissions
+submissions/archive/
+submissions/latest/*.json
+submissions/latest/*.md
+
+# Generated documentation that gets recreated
+pipeline_logs/
+validation_reports/
+
+# Python bytecode and cache
+*.pyc
+.pytest_cache/
+.coverage
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS specific
+.DS_Store
+*.swp
+*.swo 
