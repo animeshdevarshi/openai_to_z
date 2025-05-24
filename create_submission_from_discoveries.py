@@ -6,14 +6,18 @@ import json
 import os
 from datetime import datetime
 from enhanced_ai_analyzer import EnhancedAIAnalyzer
+from output_config import ensure_output_dirs, get_output_path, get_timestamped_filename
 
 def create_checkpoint2_submission():
     """Create a proper Checkpoint 2 submission from AI discoveries"""
     print("📦 CREATING CHECKPOINT 2 SUBMISSION")
     print("=" * 50)
     print("🎯 Using AI discoveries from successful analysis")
-    print("🔧 Fixing data source and footprint validation")
+    print("🔧 Using organized output structure")
     print()
+    
+    # Ensure output directories exist
+    ensure_output_dirs()
     
     # Initialize AI analyzer to get discoveries
     ai_analyzer = EnhancedAIAnalyzer()
@@ -110,26 +114,33 @@ def create_checkpoint2_submission():
         }
     }
     
-    # Save submission
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f"checkpoint2_submission_{timestamp}.json"
+    # Save submission using organized output structure
+    submission_file = get_timestamped_filename("checkpoint2_submission", "json", "submissions")
     
     try:
-        with open(filename, 'w') as f:
+        with open(submission_file, 'w') as f:
             json.dump(submission, f, indent=2)
         
-        print(f"✅ Checkpoint 2 submission created: {filename}")
+        print(f"✅ Checkpoint 2 submission created: {submission_file}")
         
-        # Create summary report
-        summary_file = create_summary_report(submission, filename.replace('.json', '_summary.md'))
+        # Create summary report  
+        summary_file = submission_file.replace('.json', '_summary.md')
+        create_summary_report(submission, summary_file)
+        
+        # Save discoveries to analysis results
+        discoveries_file = get_output_path('discoveries')
+        with open(discoveries_file, 'w') as f:
+            json.dump(discoveries, f, indent=2)
+        print(f"✅ Discoveries saved: {discoveries_file}")
         
         # Show validation summary
         show_validation_summary(submission)
         
         print(f"\n🎉 SUBMISSION SUCCESSFUL!")
         print("=" * 30)
-        print(f"📄 Main submission: {filename}")
+        print(f"📄 Main submission: {submission_file}")
         print(f"📄 Summary report: {summary_file}")
+        print(f"📄 Discoveries: {discoveries_file}")
         print(f"🎯 Checkpoint 2 compliant: ✅")
         
         return True
@@ -140,10 +151,17 @@ def create_checkpoint2_submission():
 
 def load_ai_discoveries():
     """Load AI discoveries from recent analysis"""
-    # Try to find recent AI analysis files
+    # Try to find recent AI analysis files in analysis results
+    analysis_dir = get_output_path('analysis_results')
     discovery_files = []
     
-    # Look for saved analysis files
+    # Look for saved analysis files in analysis results directory
+    if os.path.exists(analysis_dir):
+        for filename in os.listdir(analysis_dir):
+            if filename.startswith('enhanced_ai_analysis_') and filename.endswith('.json'):
+                discovery_files.append(os.path.join(analysis_dir, filename))
+    
+    # Also check current directory for backward compatibility
     for filename in os.listdir('.'):
         if filename.startswith('enhanced_ai_analysis_') and filename.endswith('.json'):
             discovery_files.append(filename)

@@ -67,7 +67,8 @@ class SimpleRegionConfig:
             try:
                 with open(self.config_file, 'r') as f:
                     saved_regions = json.load(f)
-                    self.regions.update(saved_regions)
+                    # Replace default regions with saved regions (don't merge)
+                    self.regions = saved_regions
                 print(f"✅ Loaded {len(self.regions)} regions from {self.config_file}")
             except Exception as e:
                 print(f"⚠️ Could not load config: {e}")

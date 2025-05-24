@@ -9,6 +9,11 @@ import numpy as np
 from datetime import datetime
 from PIL import Image
 from typing import Dict, List, Tuple
+import ee
+import json
+
+# Import output configuration
+from output_config import get_paths
 
 class EnhancedDataProcessor:
     """
@@ -17,22 +22,29 @@ class EnhancedDataProcessor:
     """
     
     def __init__(self):
-        """Initialize multi-scale processor"""
-        self.output_folder = "enhanced_images"
-        self.processed_data = {}
+        """Initialize multi-scale processor with organized output paths"""
+        # Use organized output structure
+        self.paths = get_paths()
+        self.output_folder = self.paths['images']  # Use organized structure
+        
+        # Ensure output directories exist
+        for scale in ['regional', 'zone', 'site']:
+            scale_dir = os.path.join(self.output_folder, scale)
+            os.makedirs(scale_dir, exist_ok=True)
+        
+        # Analysis scales for multi-tier detection
         self.analysis_scales = {
-            'regional': {'size_km': 50, 'resolution': 512, 'purpose': 'Network detection'},
-            'zone': {'size_km': 10, 'resolution': 1024, 'purpose': 'Site identification'},  
-            'site': {'size_km': 2, 'resolution': 1024, 'purpose': 'Feature confirmation'}
+            'regional': {'size_km': 50, 'resolution_m': 100},
+            'zone': {'size_km': 10, 'resolution_m': 30},
+            'site': {'size_km': 2, 'resolution_m': 10}
         }
         
-        # Create output folders
-        os.makedirs(self.output_folder, exist_ok=True)
-        for scale in self.analysis_scales.keys():
-            os.makedirs(os.path.join(self.output_folder, scale), exist_ok=True)
+        self.processed_data = {}
+        self.all_discoveries = []
         
         print("🎨 Enhanced Multi-Scale Processor initialized")
-        print("📊 Analysis scales: Regional (50km) → Zone (10km) → Site (2km)")
+        print(f"📊 Analysis scales: Regional (50km) → Zone (10km) → Site (2km)")
+        print(f"📁 Output directory: {self.output_folder}")
     
     def process_region_multiscale(self, region_data: Dict) -> Dict:
         """
@@ -222,14 +234,39 @@ class EnhancedDataProcessor:
         
         images_created = {}
         
-        # Archaeological probability heatmap
+        # Archaeological probability heatmap with dynamic range
         arch_index = region_data['data_sources']['archaeological_index']
+        
+        # Calculate proper min/max values for archaeological index
+        try:
+            stats = arch_index.reduceRegion(
+                reducer=ee.Reducer.minMax(),
+                geometry=regional_area,
+                scale=100,  # Coarser scale for regional
+                maxPixels=1e9
+            ).getInfo()
+            
+            arch_min = stats.get('archaeological_index_min', 0)
+            arch_max = stats.get('archaeological_index_max', 1)
+            
+            # Handle invalid ranges
+            if arch_min is None or arch_max is None or arch_min == arch_max:
+                arch_min, arch_max = 0, 0.5
+            
+            # Use 95th percentile if values are extreme
+            if arch_max > 3:
+                arch_max = arch_max * 0.8  # Reduce max for better contrast
+                
+        except Exception as e:
+            print(f"   ⚠️ Using default archaeological index range: {e}")
+            arch_min, arch_max = 0, 0.3
+        
         arch_url = arch_index.getThumbURL({
             'region': regional_area,
             'dimensions': 512,
             'format': 'png',
-            'min': 0,
-            'max': 1,
+            'min': arch_min,
+            'max': arch_max,
             'palette': ['000033', '000066', '003366', '006666', '336666', 
                        '666633', '996633', 'CC6633', 'FF6633', 'FF3300']
         })
@@ -239,6 +276,8 @@ class EnhancedDataProcessor:
             f"{self.output_folder}/regional/{region_id}_archaeological_heatmap.png"
         )
         images_created['archaeological_heatmap'] = arch_file
+        
+        print(f"   📊 Regional archaeological range: {arch_min:.3f} to {arch_max:.3f}")
         
         # Multi-source composite
         optical = region_data['data_sources']['optical']
@@ -303,15 +342,43 @@ class EnhancedDataProcessor:
         )
         images_created['radar'] = radar_file
         
-        # Archaeological index
+        # Archaeological index with corrected visualization
         arch_index = region_data['data_sources']['archaeological_index']
+        
+        # Calculate proper min/max values for better visualization
+        try:
+            # Get actual statistics of the archaeological index
+            stats = arch_index.reduceRegion(
+                reducer=ee.Reducer.minMax(),
+                geometry=zone_geometry,
+                scale=30,
+                maxPixels=1e9
+            ).getInfo()
+            
+            # Use actual data range or fallback to defaults
+            arch_min = stats.get('archaeological_index_min', 0)
+            arch_max = stats.get('archaeological_index_max', 1)
+            
+            # Ensure valid range
+            if arch_min is None or arch_max is None or arch_min == arch_max:
+                arch_min, arch_max = 0, 1
+            
+            # Normalize the range for better visualization
+            if arch_max > 2:  # If values are too high, normalize
+                arch_max = np.percentile([arch_min, arch_max], 95)  # Use 95th percentile
+        
+        except Exception as e:
+            print(f"   ⚠️ Failed to get archaeological index stats: {e}")
+            arch_min, arch_max = 0, 0.5  # Conservative fallback
+        
+        # Use a more balanced color palette (blue-green-yellow-red)
         arch_url = arch_index.getThumbURL({
             'region': zone_geometry,
             'dimensions': 1024,
             'format': 'png',
-            'min': 0,
-            'max': 1,
-            'palette': ['000000', '0000FF', '00FF00', 'FFFF00', 'FF0000']
+            'min': arch_min,
+            'max': arch_max,
+            'palette': ['000066', '0066CC', '00CC66', 'CCCC00', 'CC6600', 'CC0000']
         })
         
         arch_file = self.download_image(
@@ -319,6 +386,8 @@ class EnhancedDataProcessor:
             f"{self.output_folder}/zone/{region_id}_{zone_id}_archaeological.png"
         )
         images_created['archaeological'] = arch_file
+        
+        print(f"   📊 Archaeological index range: {arch_min:.3f} to {arch_max:.3f}")
         
         return images_created
     
@@ -670,6 +739,6 @@ if __name__ == "__main__":
     print(f"✅ Multi-scale processor ready!")
     print(f"📊 Analysis scales configured:")
     for scale, config in processor.analysis_scales.items():
-        print(f"   {scale}: {config['size_km']}km at {config['resolution']}px")
+        print(f"   {scale}: {config['size_km']}km at {config['resolution_m']}m")
     print(f"📁 Output folder: {processor.output_folder}/")
     print(f"🏛️ Ready for archaeological discovery!")

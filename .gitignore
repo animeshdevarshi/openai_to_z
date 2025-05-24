@@ -51,4 +51,56 @@ Thumbs.db
 
 # API keys and credentials
 *_credentials.json
-*_key.json 
+*_key.json
+
+# Output directories (generated files)
+outputs/
+enhanced_images/
+checkpoint2_results/
+
+# Generated submission files (specific instances)
+checkpoint2_submission_*.json
+checkpoint2_summary_*.md
+
+# Pipeline state files
+pipeline_progress.json
+
+# Virtual environments
+venv/
+env/
+archaeological_env/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment files with potential secrets
+.env
+.env.local
+
+# Large data files
+*.tif
+*.tiff
+*.h5
+*.hdf5
+
+# Temporary files
+*.temp
+*~
+
+# Log files
+*.log
+
+# Archives
+*.tar.gz
+*.zip
+
+# pytest cache
+.pytest_cache/ 

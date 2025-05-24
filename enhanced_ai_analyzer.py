@@ -9,6 +9,12 @@ from datetime import datetime
 from typing import List, Dict, Optional
 from openai import OpenAI
 from dotenv import load_dotenv
+import keyring
+import time
+import re
+
+# Import output configuration
+from output_config import get_paths
 
 
 class EnhancedAIAnalyzer:
@@ -21,6 +27,9 @@ class EnhancedAIAnalyzer:
         """Initialize with archaeological knowledge base"""
         # Load environment variables
         load_dotenv()
+        
+        # Get organized output paths
+        self.paths = get_paths()
         
         self.ai_responses = []
         self.discoveries = []
@@ -63,6 +72,7 @@ class EnhancedAIAnalyzer:
         print("🤖 Enhanced Archaeological AI Analyzer initialized")
         print("🏛️ Loaded Casarabe culture knowledge base")
         print("📊 Scale-specific prompting ready")
+        print(f"💾 Output directory: {self.paths['analysis_results']}")
     
     def create_regional_prompt(self, region_info: Dict, images: Dict) -> str:
         """
@@ -158,7 +168,7 @@ REQUIRED OUTPUT FORMAT - JSON ONLY:
   }}
 }}
 
-CRITICAL: Respond ONLY with valid JSON. Do not include any text before or after the JSON."""
+CRITICAL: Respond ONLY with valid JSON."""
 
         # Store prompt for Checkpoint 2 compliance
         self.prompts_used['regional'].append({
@@ -535,6 +545,180 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
         Call AI model with image and prompt
         Uses OpenAI GPT-4 Vision API
         """
+        
+        # MOCK MODE for testing (remove when ready for real AI calls)
+        print(f"🤖 MOCK AI analysis for {analysis_scale} scale...")
+        print(f"📸 Would analyze: {os.path.basename(image_path)}")
+        
+        # Return mock JSON responses for testing
+        if analysis_scale == 'regional':
+            return """{
+  "analysis_type": "regional_network",
+  "region_name": "Colombian Amazon",
+  "coordinates": "0.0, -70.0",
+  "settlement_clusters": [
+    {
+      "cluster_id": 1,
+      "center_coordinates": "-1.0667, -70.1459",
+      "cluster_size_km": 5.0,
+      "site_count_estimate": 3,
+      "primary_centers": 1,
+      "secondary_centers": 2,
+      "confidence": 0.8
+    }
+  ],
+  "causeway_networks": [],
+  "priority_zones": [
+    {
+      "zone_id": 1,
+      "center_coordinates": "-1.0667, -70.1459",
+      "priority_level": "high",
+      "expected_site_type": "primary",
+      "reasoning": "Large geometric features detected"
+    }
+  ],
+  "overall_assessment": {
+    "network_hierarchy_detected": true,
+    "total_clusters_found": 1,
+    "total_causeways_found": 0,
+    "confidence_score": 0.8,
+    "recommended_detailed_analysis": true
+  }
+}"""
+        
+        elif analysis_scale == 'zone':
+            return """{
+  "analysis_type": "zone_site_detection",
+  "zone_id": "test_zone",
+  "zone_center": "-1.0667, -70.1459",
+  "sites_detected": [
+    {
+      "site_id": "site_001",
+      "center_coordinates": "-1.0667, -70.1459",
+      "site_type": "secondary",
+      "diameter_meters": 400,
+      "defensive_rings": 1,
+      "features_detected": ["concentric_rings", "raised_platform"],
+      "data_sources_visible": ["optical", "radar"],
+      "measurements": {
+        "outer_ring_diameter_m": 400,
+        "inner_platform_size_m": 200,
+        "estimated_area_hectares": 20
+      },
+      "context": {
+        "elevation": "elevated",
+        "water_proximity": true,
+        "forest_disturbance": false
+      },
+      "confidence_score": 0.7,
+      "geometric_regularity": 0.8,
+      "archaeological_probability": 0.7
+    },
+    {
+      "site_id": "site_002",
+      "center_coordinates": "-1.0700, -70.1500",
+      "site_type": "tertiary",
+      "diameter_meters": 150,
+      "defensive_rings": 0,
+      "features_detected": ["raised_platform"],
+      "data_sources_visible": ["optical"],
+      "measurements": {
+        "outer_ring_diameter_m": 150,
+        "inner_platform_size_m": 100,
+        "estimated_area_hectares": 5
+      },
+      "context": {
+        "elevation": "elevated",
+        "water_proximity": false,
+        "forest_disturbance": false
+      },
+      "confidence_score": 0.6,
+      "geometric_regularity": 0.6,
+      "archaeological_probability": 0.6
+    }
+  ],
+  "linear_features": [],
+  "zone_summary": {
+    "total_sites_detected": 2,
+    "primary_sites": 0,
+    "secondary_sites": 1,
+    "geometric_features_count": 2,
+    "zone_confidence": 0.65,
+    "recommend_site_analysis": true
+  }
+}"""
+        
+        elif analysis_scale == 'site':
+            return """{
+  "analysis_type": "site_detailed_mapping",
+  "site_id": "detailed_site_001",
+  "site_center": "-1.0667, -70.1459",
+  "defensive_structures": {
+    "concentric_rings": [
+      {
+        "ring_number": 1,
+        "diameter_meters": 400,
+        "type": "rampart",
+        "completeness": 0.9,
+        "preservation": "good"
+      }
+    ],
+    "entrance_gaps": [
+      {
+        "gap_id": 1,
+        "location": "north",
+        "width_meters": 30,
+        "causeway_connection": false
+      }
+    ]
+  },
+  "central_architecture": {
+    "raised_platforms": [
+      {
+        "platform_id": 1,
+        "dimensions": "200m x 150m",
+        "height_estimate_m": 3,
+        "shape": "rectangular",
+        "function": "ceremonial"
+      }
+    ],
+    "pyramid_mounds": [],
+    "plaza_areas": [
+      {
+        "plaza_id": 1,
+        "dimensions": "100m x 100m",
+        "surface_type": "prepared"
+      }
+    ]
+  },
+  "site_connections": [],
+  "site_measurements": {
+    "overall_diameter_m": 400,
+    "total_area_hectares": 20,
+    "defensive_area_hectares": 12,
+    "central_area_hectares": 3
+  },
+  "site_classification": {
+    "tier": "secondary",
+    "confidence": 0.8,
+    "classification_criteria": ["single_ring", "large_platform"]
+  },
+  "preservation_assessment": {
+    "overall_preservation": "good",
+    "modern_disturbances": false,
+    "disturbance_types": [],
+    "archaeological_integrity": 0.8
+  },
+  "final_assessment": {
+    "archaeological_confidence": 0.8,
+    "site_significance": "high",
+    "recommended_for_submission": true,
+    "additional_analysis_needed": false
+  }
+}"""
+        
+        # For real AI calls, uncomment this code:
+        """
         try:
             # Get API key from environment variable
             api_key = os.getenv('OPENAI_API_KEY')
@@ -554,7 +738,7 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
             
             # Call OpenAI API
             response = client.chat.completions.create(
-                model="o3",  
+                model="gpt-4o",
                 messages=[
                     {
                         "role": "user",
@@ -567,9 +751,8 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                         ]
                     }
                 ],
-                # max_tokens=1000,
-                response_format={"type": "json_object"},
-                reasoning_effort="high"
+                max_tokens=1000,
+                response_format={"type": "json_object"}
             )
             
             ai_response = response.choices[0].message.content
@@ -580,6 +763,7 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
         except Exception as e:
             print(f"❌ AI model call failed: {e}")
             return None
+        """
     
     def analyze_regional_scale(self, region_results: Dict) -> Optional[Dict]:
         """Analyze at regional scale for network detection"""
@@ -752,15 +936,30 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                 # Extract from regional analysis
                 if 'settlement_clusters' in response_data:
                     for i, cluster in enumerate(response_data['settlement_clusters']):
-                        if cluster.get('confidence', 0) >= 0.5:
+                        if cluster.get('confidence', 0) >= 0.3:  # Lowered threshold
+                            # Parse coordinates
+                            coords_str = cluster.get('center_coordinates', '0, 0')
+                            try:
+                                if ',' in coords_str:
+                                    lat_str, lng_str = coords_str.split(',')
+                                    center_lat = float(lat_str.strip())
+                                    center_lng = float(lng_str.strip())
+                                else:
+                                    center_lat, center_lng = 0, 0
+                            except:
+                                center_lat, center_lng = 0, 0
+                            
                             discovery = {
                                 'id': f"regional_cluster_{i+1:03d}",
                                 'analysis_scale': 'regional',
                                 'type': 'settlement_cluster',
-                                'center_coordinates': cluster.get('center_coordinates'),
+                                'center_lat': center_lat,
+                                'center_lng': center_lng,
+                                'center_coordinates': [center_lat, center_lng],
                                 'cluster_size_km': cluster.get('cluster_size_km', 0),
                                 'site_count_estimate': cluster.get('site_count_estimate', 0),
                                 'confidence_score': cluster.get('confidence', 0),
+                                'confidence': cluster.get('confidence', 0),  # Duplicate for compatibility
                                 'discovery_timestamp': datetime.now().isoformat(),
                                 'source_analysis': analysis
                             }
@@ -769,14 +968,29 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                 if 'priority_zones' in response_data:
                     for i, zone in enumerate(response_data['priority_zones']):
                         if zone.get('priority_level') in ['high', 'medium']:
+                            # Parse coordinates 
+                            coords_str = zone.get('center_coordinates', '0, 0')
+                            try:
+                                if ',' in coords_str:
+                                    lat_str, lng_str = coords_str.split(',')
+                                    center_lat = float(lat_str.strip())
+                                    center_lng = float(lng_str.strip())
+                                else:
+                                    center_lat, center_lng = 0, 0
+                            except:
+                                center_lat, center_lng = 0, 0
+                            
                             discovery = {
                                 'id': f"priority_zone_{i+1:03d}",
                                 'analysis_scale': 'regional',
                                 'type': 'priority_zone',
-                                'center_coordinates': zone.get('center_coordinates'),
+                                'center_lat': center_lat,
+                                'center_lng': center_lng,
+                                'center_coordinates': [center_lat, center_lng],
                                 'expected_site_type': zone.get('expected_site_type'),
                                 'priority_level': zone.get('priority_level'),
                                 'confidence_score': 0.7 if zone.get('priority_level') == 'high' else 0.5,
+                                'confidence': 0.7 if zone.get('priority_level') == 'high' else 0.5,
                                 'discovery_timestamp': datetime.now().isoformat(),
                                 'source_analysis': analysis
                             }
@@ -786,12 +1000,26 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                 # Extract from zone analysis
                 if 'sites_detected' in response_data:
                     for site in response_data['sites_detected']:
-                        if site.get('confidence_score', 0) >= 0.5:
+                        if site.get('confidence_score', 0) >= 0.3:  # Lowered threshold
+                            # Parse coordinates
+                            coords_str = site.get('center_coordinates', '0, 0')
+                            try:
+                                if ',' in coords_str:
+                                    lat_str, lng_str = coords_str.split(',')
+                                    center_lat = float(lat_str.strip())
+                                    center_lng = float(lng_str.strip())
+                                else:
+                                    center_lat, center_lng = 0, 0
+                            except:
+                                center_lat, center_lng = 0, 0
+                            
                             discovery = {
                                 'id': site.get('site_id', f"zone_site_{len(discoveries)+1:03d}"),
                                 'analysis_scale': 'zone',
                                 'type': 'archaeological_site',
-                                'center_coordinates': site.get('center_coordinates'),
+                                'center_lat': center_lat,
+                                'center_lng': center_lng,
+                                'center_coordinates': [center_lat, center_lng],
                                 'site_type': site.get('site_type'),
                                 'diameter_meters': site.get('diameter_meters', 0),
                                 'defensive_rings': site.get('defensive_rings', 0),
@@ -799,6 +1027,7 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                                 'measurements': site.get('measurements', {}),
                                 'context': site.get('context', {}),
                                 'confidence_score': site.get('confidence_score', 0),
+                                'confidence': site.get('confidence_score', 0),
                                 'geometric_regularity': site.get('geometric_regularity', 0),
                                 'archaeological_probability': site.get('archaeological_probability', 0),
                                 'discovery_timestamp': datetime.now().isoformat(),
@@ -808,18 +1037,21 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                 
                 if 'linear_features' in response_data:
                     for feature in response_data['linear_features']:
-                        if feature.get('confidence', 0) >= 0.5:
+                        if feature.get('confidence', 0) >= 0.3:  # Lowered threshold
                             discovery = {
                                 'id': feature.get('feature_id', f"causeway_{len(discoveries)+1:03d}"),
                                 'analysis_scale': 'zone',
                                 'type': 'linear_feature',
                                 'start_coordinates': feature.get('start_coordinates'),
                                 'end_coordinates': feature.get('end_coordinates'),
+                                'center_lat': 0,  # Will be calculated from start/end
+                                'center_lng': 0,
                                 'width_meters': feature.get('width_meters', 0),
                                 'length_meters': feature.get('length_meters', 0),
                                 'orientation': feature.get('orientation'),
                                 'connects_sites': feature.get('connects_sites', []),
                                 'confidence_score': feature.get('confidence', 0),
+                                'confidence': feature.get('confidence', 0),
                                 'discovery_timestamp': datetime.now().isoformat(),
                                 'source_analysis': analysis
                             }
@@ -827,11 +1059,27 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
             
             elif scale == 'site':
                 # Extract from detailed site analysis
-                if response_data.get('final_assessment', {}).get('archaeological_confidence', 0) >= 0.5:
+                if response_data.get('final_assessment', {}).get('archaeological_confidence', 0) >= 0.3:
+                    # Parse coordinates from site_center
+                    site_center = response_data.get('site_center', '0, 0')
+                    try:
+                        if isinstance(site_center, list) and len(site_center) >= 2:
+                            center_lat, center_lng = float(site_center[0]), float(site_center[1])
+                        elif ',' in str(site_center):
+                            lat_str, lng_str = str(site_center).split(',')
+                            center_lat = float(lat_str.strip())
+                            center_lng = float(lng_str.strip())
+                        else:
+                            center_lat, center_lng = 0, 0
+                    except:
+                        center_lat, center_lng = 0, 0
+                    
                     discovery = {
                         'id': response_data.get('site_id', f"detailed_site_{len(discoveries)+1:03d}"),
                         'analysis_scale': 'site',
                         'type': 'detailed_archaeological_site',
+                        'center_lat': center_lat,
+                        'center_lng': center_lng,
                         'site_center': response_data.get('site_center'),
                         'defensive_structures': response_data.get('defensive_structures', {}),
                         'central_architecture': response_data.get('central_architecture', {}),
@@ -840,48 +1088,13 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
                         'site_classification': response_data.get('site_classification', {}),
                         'preservation_assessment': response_data.get('preservation_assessment', {}),
                         'confidence_score': response_data.get('final_assessment', {}).get('archaeological_confidence', 0),
+                        'confidence': response_data.get('final_assessment', {}).get('archaeological_confidence', 0),
                         'site_significance': response_data.get('final_assessment', {}).get('site_significance'),
                         'recommended_for_submission': response_data.get('final_assessment', {}).get('recommended_for_submission', False),
                         'discovery_timestamp': datetime.now().isoformat(),
                         'source_analysis': analysis
                     }
                     discoveries.append(discovery)
-            
-            elif scale == 'leverage':
-                # Extract from leverage analysis
-                if 'pattern_matches' in response_data:
-                    for match in response_data['pattern_matches']:
-                        if match.get('confidence', 0) >= 0.5:
-                            discovery = {
-                                'id': f"leverage_match_{len(discoveries)+1:03d}",
-                                'analysis_scale': 'leverage',
-                                'type': 'pattern_match',
-                                'location': match.get('location'),
-                                'similarity_score': match.get('similarity_score', 0),
-                                'matching_characteristics': match.get('matching_characteristics', []),
-                                'predicted_site_type': match.get('predicted_site_type'),
-                                'confidence_score': match.get('confidence', 0),
-                                'discovery_timestamp': datetime.now().isoformat(),
-                                'source_analysis': analysis
-                            }
-                            discoveries.append(discovery)
-                
-                if 'leverage_recommendations' in response_data:
-                    for area in response_data['leverage_recommendations'].get('priority_search_areas', []):
-                        if area.get('priority') in ['high', 'medium']:
-                            discovery = {
-                                'id': f"leverage_area_{area.get('area_id', len(discoveries)+1):03d}",
-                                'analysis_scale': 'leverage',
-                                'type': 'priority_search_area',
-                                'center_coordinates': area.get('center_coordinates'),
-                                'radius_km': area.get('radius_km', 0),
-                                'search_reason': area.get('search_reason'),
-                                'priority': area.get('priority'),
-                                'confidence_score': 0.8 if area.get('priority') == 'high' else 0.6,
-                                'discovery_timestamp': datetime.now().isoformat(),
-                                'source_analysis': analysis
-                            }
-                            discoveries.append(discovery)
         
         except json.JSONDecodeError as e:
             print(f"⚠️ Failed to parse JSON response: {e}")
@@ -895,58 +1108,48 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
         return discoveries
     
     def _fallback_extraction(self, analysis: Dict, scale: str) -> List[Dict]:
-        """Fallback method for non-JSON responses"""
+        """Fallback extraction when JSON parsing fails - extract from text"""
         discoveries = []
-        ai_response = analysis['ai_response'].lower()
         
-        # Simple keyword-based extraction as fallback
-        confidence_indicators = ['confidence', 'likely', 'probable', 'certain']
-        site_indicators = ['site', 'center', 'settlement', 'structure']
-        
-        # Look for confidence scores
-        confidence_score = 0.5  # Default
-        for line in ai_response.split('\n'):
-            if 'confidence' in line:
-                # Try to extract numerical confidence
-                words = line.split()
-                for word in words:
-                    try:
-                        if '/' in word:
-                            conf = float(word.split('/')[0])
-                            confidence_score = conf / 10.0
-                        elif word.replace('.', '').isdigit():
-                            conf = float(word)
-                            if conf <= 10:
-                                confidence_score = conf / 10.0
-                    except:
-                        continue
-        
-        # Check if response indicates archaeological features
-        has_archaeological_features = any(
-            indicator in ai_response 
-            for indicator in ['ring', 'platform', 'mound', 'geometric', 'causeway']
-        )
-        
-        if has_archaeological_features and confidence_score >= 0.5:
-            discovery = {
-                'id': f"fallback_discovery_{len(self.discoveries) + 1:04d}",
-                'analysis_scale': scale,
-                'type': 'fallback_extraction',
-                'confidence_score': confidence_score,
-                'ai_response': analysis['ai_response'],
-                'discovery_timestamp': datetime.now().isoformat(),
-                'source_analysis': analysis
-            }
+        try:
+            text = analysis.get('ai_response', '').lower()
             
-            # Add scale-specific information
-            if scale == 'zone':
-                discovery['zone_id'] = analysis.get('zone_id')
-                discovery['zone_center'] = analysis.get('zone_center')
-            elif scale == 'site':
-                discovery['site_id'] = analysis.get('site_id')
-                discovery['site_center'] = analysis.get('site_center')
+            # Look for coordinate patterns in text
+            coord_pattern = r'(-?\d+\.?\d*)\s*,\s*(-?\d+\.?\d*)'
+            coordinates = re.findall(coord_pattern, text)
             
-            discoveries.append(discovery)
+            # Look for confidence scores
+            confidence_pattern = r'confidence[:\s]*(\d*\.?\d+)'
+            confidences = re.findall(confidence_pattern, text)
+            
+            for i, (lat_str, lng_str) in enumerate(coordinates[:5]):  # Max 5 discoveries
+                try:
+                    center_lat = float(lat_str)
+                    center_lng = float(lng_str)
+                    confidence = float(confidences[i]) if i < len(confidences) else 0.5
+                    
+                    # Normalize confidence to 0-1 range
+                    if confidence > 1.0:
+                        confidence = confidence / 100.0
+                    
+                    discovery = {
+                        'id': f"fallback_{scale}_{i+1:03d}",
+                        'analysis_scale': scale,
+                        'type': f'{scale}_fallback_discovery',
+                        'center_lat': center_lat,
+                        'center_lng': center_lng,
+                        'confidence_score': confidence,
+                        'confidence': confidence,
+                        'source': 'fallback_extraction',
+                        'discovery_timestamp': datetime.now().isoformat(),
+                        'source_analysis': analysis
+                    }
+                    discoveries.append(discovery)
+                except (ValueError, IndexError):
+                    continue
+                    
+        except Exception as e:
+            print(f"⚠️ Fallback extraction failed: {e}")
         
         return discoveries
     
@@ -1085,10 +1288,13 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
         ]
     
     def save_analysis_results(self, filename: str = None) -> str:
-        """Save all analysis results"""
+        """Save all analysis results to organized output folder"""
         if filename is None:
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f"enhanced_ai_analysis_{timestamp}.json"
+        
+        # Use organized output path
+        output_file = os.path.join(self.paths['analysis_results'], filename)
         
         results = {
             'analysis_timestamp': datetime.now().isoformat(),
@@ -1101,10 +1307,10 @@ CRITICAL: Apply the learned patterns to find missing network components. Respond
         }
         
         try:
-            with open(filename, 'w') as f:
+            with open(output_file, 'w') as f:
                 json.dump(results, f, indent=2)
-            print(f"💾 Analysis results saved to {filename}")
-            return filename
+            print(f"💾 Analysis results saved to {output_file}")
+            return output_file
         except Exception as e:
             print(f"❌ Could not save results: {e}")
             return None
