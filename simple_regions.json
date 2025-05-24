@@ -1,0 +1,57 @@
+{
+  "bolivia_main": {
+    "name": "Beni Region, Bolivia",
+    "center": [
+      -12.6,
+      -65.3
+    ],
+    "country": "Bolivia",
+    "priority": "high",
+    "known_sites": true,
+    "notes": "Proven archaeological area with documented earthworks"
+  },
+  "brazil_xingu": {
+    "name": "Upper Xingu Basin, Brazil",
+    "center": [
+      -12.5,
+      -53.0
+    ],
+    "country": "Brazil",
+    "priority": "high",
+    "known_sites": true,
+    "notes": "Well-documented archaeological region"
+  },
+  "brazil_acre": {
+    "name": "Acre State, Brazil",
+    "center": [
+      -9.5,
+      -67.8
+    ],
+    "country": "Brazil",
+    "priority": "medium",
+    "known_sites": true,
+    "notes": "Border region with known sites"
+  },
+  "peru_explore": {
+    "name": "Ucayali Basin, Peru",
+    "center": [
+      -8.0,
+      -74.5
+    ],
+    "country": "Peru",
+    "priority": "medium",
+    "known_sites": false,
+    "notes": "Exploration area with potential"
+  },
+  "colombia_test": {
+    "name": "Colombian Amazon",
+    "center": [
+      -1.0,
+      -70.0
+    ],
+    "country": "Colombia",
+    "priority": "low",
+    "known_sites": false,
+    "notes": "Test exploration region"
+  }
+}
