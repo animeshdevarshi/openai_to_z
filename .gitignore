@@ -53,10 +53,15 @@ Thumbs.db
 *_credentials.json
 *_key.json
 
-# Output directories (generated files)
-outputs/
+# Output directories (generated files) - but allow final_results
+outputs/satellite_imagery/
+outputs/processed_data/
+outputs/archaeological_analysis/
+outputs/competition_submissions/
 enhanced_images/
 checkpoint2_results/
+# Allow final_results directories to be tracked
+!outputs/final_results_*/
 
 # Generated submission files (specific instances)
 checkpoint2_submission_*.json
@@ -115,12 +120,17 @@ test_*.py
 temp_*.py
 *_temp.py
 
-# Generated satellite imagery files
-*.png
-*.jpg
-*.jpeg
+# Generated satellite imagery files - but allow final_results images
+outputs/satellite_imagery/*.png
+outputs/satellite_imagery/*.jpg
+outputs/processed_data/*.png
+outputs/processed_data/*.jpg
 *.tif
 *.tiff
+# Allow final_results images to be tracked
+!outputs/final_results_*/**/*.png
+!outputs/final_results_*/**/*.jpg
+!outputs/final_results_*/**/*.jpeg
 
 # Large data processing outputs
 outputs/satellite_imagery/

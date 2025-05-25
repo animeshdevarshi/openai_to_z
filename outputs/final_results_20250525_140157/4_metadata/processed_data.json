@@ -1,0 +1,934 @@
+{
+  "brazil_acre": {
+    "region_id": "brazil_acre",
+    "region_name": "Acre State, Brazil",
+    "scales": {
+      "regional": {
+        "scale": "regional",
+        "images": {
+          "archaeological_heatmap": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/regional/brazil_acre_archaeological_heatmap.png",
+          "optical_composite": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/regional/brazil_acre_optical_composite.png"
+        },
+        "hotspots": [
+          {
+            "id": "hotspot_1",
+            "center": [
+              -9.5971356777213,
+              -67.9498093711896
+            ],
+            "confidence": 0.8407444164183706,
+            "estimated_sites": 5
+          },
+          {
+            "id": "hotspot_2",
+            "center": [
+              -9.485454543106933,
+              -67.66874643436353
+            ],
+            "confidence": 0.7509938370296279,
+            "estimated_sites": 2
+          },
+          {
+            "id": "hotspot_3",
+            "center": [
+              -9.415873283301112,
+              -67.77809963358659
+            ],
+            "confidence": 0.8452290609951322,
+            "estimated_sites": 3
+          }
+        ],
+        "linear_features": [
+          {
+            "id": "linear_1",
+            "type": "potential_causeway",
+            "confidence": 0.7,
+            "length_km": 3.2
+          }
+        ],
+        "analysis_resolution_m": 97
+      },
+      "zones": [
+        {
+          "zone_id": "hotspot_3_zone_0_0",
+          "zone_center": [
+            -9.457873283301112,
+            -67.8200996335866
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_0_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_0_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_0_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [],
+            "raised_platforms": [],
+            "geometric_patterns": [
+              {
+                "shape": "rectangular",
+                "center": [
+                  -9.457873283301112,
+                  -67.8200996335866
+                ],
+                "size_m": 102,
+                "confidence": 0.6723242868636244,
+                "type": "geometric_patterns"
+              }
+            ],
+            "vegetation_anomalies": []
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.457873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_0_0",
+              "confidence": 0.6723242868636244,
+              "evidence_types": [
+                "geometric_patterns"
+              ],
+              "source_detections": [
+                {
+                  "shape": "rectangular",
+                  "center": [
+                    -9.457873283301112,
+                    -67.8200996335866
+                  ],
+                  "size_m": 102,
+                  "confidence": 0.6723242868636244,
+                  "type": "geometric_patterns"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_0_1",
+          "zone_center": [
+            -9.457873283301112,
+            -67.77809963358659
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_1_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_1_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_0_1_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [],
+            "raised_platforms": [],
+            "geometric_patterns": [
+              {
+                "shape": "polygonal",
+                "center": [
+                  -9.457873283301112,
+                  -67.77809963358659
+                ],
+                "size_m": 117,
+                "confidence": 0.4490008383364183,
+                "type": "geometric_patterns"
+              }
+            ],
+            "vegetation_anomalies": []
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.457873283301112,
+                -67.77809963358659
+              ],
+              "zone_id": "hotspot_3_zone_0_1",
+              "confidence": 0.4490008383364183,
+              "evidence_types": [
+                "geometric_patterns"
+              ],
+              "source_detections": [
+                {
+                  "shape": "polygonal",
+                  "center": [
+                    -9.457873283301112,
+                    -67.77809963358659
+                  ],
+                  "size_m": 117,
+                  "confidence": 0.4490008383364183,
+                  "type": "geometric_patterns"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_1_0",
+          "zone_center": [
+            -9.415873283301112,
+            -67.8200996335866
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_0_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_0_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_0_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [
+              {
+                "center": [
+                  -9.415873283301112,
+                  -67.8200996335866
+                ],
+                "radius_m": 110,
+                "confidence": 0.7486540718423282,
+                "ring_count": 1,
+                "type": "concentric_rings"
+              }
+            ],
+            "raised_platforms": [
+              {
+                "center": [
+                  -9.415873283301112,
+                  -67.8200996335866
+                ],
+                "area_ha": 40,
+                "confidence": 0.557786626530449,
+                "type": "raised_platforms"
+              }
+            ],
+            "geometric_patterns": [
+              {
+                "shape": "polygonal",
+                "center": [
+                  -9.415873283301112,
+                  -67.8200996335866
+                ],
+                "size_m": 63,
+                "confidence": 0.48114992039736576,
+                "type": "geometric_patterns"
+              }
+            ],
+            "vegetation_anomalies": []
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.415873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_1_0",
+              "confidence": 0.7486540718423282,
+              "evidence_types": [
+                "concentric_rings"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.415873283301112,
+                    -67.8200996335866
+                  ],
+                  "radius_m": 110,
+                  "confidence": 0.7486540718423282,
+                  "ring_count": 1,
+                  "type": "concentric_rings"
+                }
+              ]
+            },
+            {
+              "id": "candidate_2",
+              "center": [
+                -9.415873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_1_0",
+              "confidence": 0.557786626530449,
+              "evidence_types": [
+                "raised_platforms"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.415873283301112,
+                    -67.8200996335866
+                  ],
+                  "area_ha": 40,
+                  "confidence": 0.557786626530449,
+                  "type": "raised_platforms"
+                }
+              ]
+            },
+            {
+              "id": "candidate_3",
+              "center": [
+                -9.415873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_1_0",
+              "confidence": 0.48114992039736576,
+              "evidence_types": [
+                "geometric_patterns"
+              ],
+              "source_detections": [
+                {
+                  "shape": "polygonal",
+                  "center": [
+                    -9.415873283301112,
+                    -67.8200996335866
+                  ],
+                  "size_m": 63,
+                  "confidence": 0.48114992039736576,
+                  "type": "geometric_patterns"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_1_1",
+          "zone_center": [
+            -9.415873283301112,
+            -67.77809963358659
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_1_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_1_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_1_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [],
+            "raised_platforms": [
+              {
+                "center": [
+                  -9.415873283301112,
+                  -67.77809963358659
+                ],
+                "area_ha": 12,
+                "confidence": 0.5619596651275127,
+                "type": "raised_platforms"
+              }
+            ],
+            "geometric_patterns": [],
+            "vegetation_anomalies": []
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.415873283301112,
+                -67.77809963358659
+              ],
+              "zone_id": "hotspot_3_zone_1_1",
+              "confidence": 0.5619596651275127,
+              "evidence_types": [
+                "raised_platforms"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.415873283301112,
+                    -67.77809963358659
+                  ],
+                  "area_ha": 12,
+                  "confidence": 0.5619596651275127,
+                  "type": "raised_platforms"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_1_2",
+          "zone_center": [
+            -9.415873283301112,
+            -67.73609963358659
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_2_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_2_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_1_2_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [
+              {
+                "center": [
+                  -9.415873283301112,
+                  -67.73609963358659
+                ],
+                "radius_m": 95,
+                "confidence": 0.8424506119574571,
+                "ring_count": 3,
+                "type": "concentric_rings"
+              }
+            ],
+            "raised_platforms": [
+              {
+                "center": [
+                  -9.415873283301112,
+                  -67.73609963358659
+                ],
+                "area_ha": 5,
+                "confidence": 0.7003060874044273,
+                "type": "raised_platforms"
+              }
+            ],
+            "geometric_patterns": [],
+            "vegetation_anomalies": []
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.415873283301112,
+                -67.73609963358659
+              ],
+              "zone_id": "hotspot_3_zone_1_2",
+              "confidence": 0.8424506119574571,
+              "evidence_types": [
+                "concentric_rings"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.415873283301112,
+                    -67.73609963358659
+                  ],
+                  "radius_m": 95,
+                  "confidence": 0.8424506119574571,
+                  "ring_count": 3,
+                  "type": "concentric_rings"
+                }
+              ]
+            },
+            {
+              "id": "candidate_2",
+              "center": [
+                -9.415873283301112,
+                -67.73609963358659
+              ],
+              "zone_id": "hotspot_3_zone_1_2",
+              "confidence": 0.7003060874044273,
+              "evidence_types": [
+                "raised_platforms"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.415873283301112,
+                    -67.73609963358659
+                  ],
+                  "area_ha": 5,
+                  "confidence": 0.7003060874044273,
+                  "type": "raised_platforms"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_2_0",
+          "zone_center": [
+            -9.373873283301112,
+            -67.8200996335866
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_0_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_0_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_0_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [],
+            "raised_platforms": [
+              {
+                "center": [
+                  -9.373873283301112,
+                  -67.8200996335866
+                ],
+                "area_ha": 19,
+                "confidence": 0.6250382243229643,
+                "type": "raised_platforms"
+              }
+            ],
+            "geometric_patterns": [
+              {
+                "shape": "polygonal",
+                "center": [
+                  -9.373873283301112,
+                  -67.8200996335866
+                ],
+                "size_m": 88,
+                "confidence": 0.5721588038749906,
+                "type": "geometric_patterns"
+              }
+            ],
+            "vegetation_anomalies": [
+              {
+                "pattern": "vegetation_stress",
+                "center": [
+                  -9.373873283301112,
+                  -67.8200996335866
+                ],
+                "confidence": 0.3087917388182931,
+                "type": "vegetation_anomalies"
+              }
+            ]
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.373873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_2_0",
+              "confidence": 0.6250382243229643,
+              "evidence_types": [
+                "raised_platforms"
+              ],
+              "source_detections": [
+                {
+                  "center": [
+                    -9.373873283301112,
+                    -67.8200996335866
+                  ],
+                  "area_ha": 19,
+                  "confidence": 0.6250382243229643,
+                  "type": "raised_platforms"
+                }
+              ]
+            },
+            {
+              "id": "candidate_2",
+              "center": [
+                -9.373873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_2_0",
+              "confidence": 0.5721588038749906,
+              "evidence_types": [
+                "geometric_patterns"
+              ],
+              "source_detections": [
+                {
+                  "shape": "polygonal",
+                  "center": [
+                    -9.373873283301112,
+                    -67.8200996335866
+                  ],
+                  "size_m": 88,
+                  "confidence": 0.5721588038749906,
+                  "type": "geometric_patterns"
+                }
+              ]
+            },
+            {
+              "id": "candidate_3",
+              "center": [
+                -9.373873283301112,
+                -67.8200996335866
+              ],
+              "zone_id": "hotspot_3_zone_2_0",
+              "confidence": 0.3087917388182931,
+              "evidence_types": [
+                "vegetation_anomalies"
+              ],
+              "source_detections": [
+                {
+                  "pattern": "vegetation_stress",
+                  "center": [
+                    -9.373873283301112,
+                    -67.8200996335866
+                  ],
+                  "confidence": 0.3087917388182931,
+                  "type": "vegetation_anomalies"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        },
+        {
+          "zone_id": "hotspot_3_zone_2_2",
+          "zone_center": [
+            -9.373873283301112,
+            -67.73609963358659
+          ],
+          "scale": "zone",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_2_optical.png",
+            "radar": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_2_radar.png",
+            "archaeological": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/zone/brazil_acre_hotspot_3_zone_2_2_archaeological.png"
+          },
+          "detections": {
+            "concentric_rings": [],
+            "raised_platforms": [],
+            "geometric_patterns": [],
+            "vegetation_anomalies": [
+              {
+                "pattern": "vegetation_stress",
+                "center": [
+                  -9.373873283301112,
+                  -67.73609963358659
+                ],
+                "confidence": 0.49987524236891606,
+                "type": "vegetation_anomalies"
+              }
+            ]
+          },
+          "potential_sites": [
+            {
+              "id": "candidate_1",
+              "center": [
+                -9.373873283301112,
+                -67.73609963358659
+              ],
+              "zone_id": "hotspot_3_zone_2_2",
+              "confidence": 0.49987524236891606,
+              "evidence_types": [
+                "vegetation_anomalies"
+              ],
+              "source_detections": [
+                {
+                  "pattern": "vegetation_stress",
+                  "center": [
+                    -9.373873283301112,
+                    -67.73609963358659
+                  ],
+                  "confidence": 0.49987524236891606,
+                  "type": "vegetation_anomalies"
+                }
+              ]
+            }
+          ],
+          "analysis_resolution_m": 9.8
+        }
+      ],
+      "sites": [
+        {
+          "site_id": "site_hotspot_3_zone_1_2_candidate_1",
+          "center_lat": -9.415873283301112,
+          "center_lng": -67.73609963358659,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+          },
+          "features": {
+            "defensive_rings": 2,
+            "central_platform": true,
+            "estimated_radius_m": 175,
+            "area_hectares": 44,
+            "geometric_regularity": 0.7595072118996972,
+            "elevation_prominence": 0.676692695735289,
+            "vegetation_anomaly": 0.33834374740734635,
+            "radar_signature": 0.5435173401986794
+          },
+          "confidence": 0.85,
+          "site_tier": "Secondary",
+          "bbox_wkt": "POLYGON((-67.73626707175501 -9.417449859877689, -67.73593219541817 -9.417449859877689, -67.73593219541817 -9.414296706724535, -67.73626707175501 -9.414296706724535, -67.73626707175501 -9.417449859877689))",
+          "radius_m": 175,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.12
+        },
+        {
+          "site_id": "site_hotspot_3_zone_1_0_candidate_1",
+          "center_lat": -9.415873283301112,
+          "center_lng": -67.8200996335866,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+          },
+          "features": {
+            "defensive_rings": 2,
+            "central_platform": false,
+            "estimated_radius_m": 174,
+            "area_hectares": 145,
+            "geometric_regularity": 0.539706060027821,
+            "elevation_prominence": 0.4473163490142649,
+            "vegetation_anomaly": 0.37598078045832434,
+            "radar_signature": 0.7367133405127871
+          },
+          "confidence": 0.75,
+          "site_tier": "Primary",
+          "bbox_wkt": "POLYGON((-67.82026611496548 -9.41744085086868, -67.81993315220771 -9.41744085086868, -67.81993315220771 -9.414305715733544, -67.82026611496548 -9.414305715733544, -67.82026611496548 -9.41744085086868))",
+          "radius_m": 174,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.02
+        },
+        {
+          "site_id": "site_hotspot_3_zone_0_0_candidate_1",
+          "center_lat": -9.457873283301112,
+          "center_lng": -67.8200996335866,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+          },
+          "features": {
+            "defensive_rings": 3,
+            "central_platform": true,
+            "estimated_radius_m": 129,
+            "area_hectares": 127,
+            "geometric_regularity": 0.6009628897770178,
+            "elevation_prominence": 0.7617637898250609,
+            "vegetation_anomaly": 0.5624405543740265,
+            "radar_signature": 0.4035603809645303
+          },
+          "confidence": 0.75,
+          "site_tier": "Primary",
+          "bbox_wkt": "POLYGON((-67.82022251133377 -9.459035445463273, -67.81997675583942 -9.459035445463273, -67.81997675583942 -9.45671112113895, -67.82022251133377 -9.45671112113895, -67.82022251133377 -9.459035445463273))",
+          "radius_m": 129,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.12
+        },
+        {
+          "site_id": "site_hotspot_3_zone_1_0_candidate_2",
+          "center_lat": -9.415873283301112,
+          "center_lng": -67.8200996335866,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_2_optical.png"
+          },
+          "features": {
+            "defensive_rings": 2,
+            "central_platform": false,
+            "estimated_radius_m": 133,
+            "area_hectares": 10,
+            "geometric_regularity": 0.6329350846603974,
+            "elevation_prominence": 0.7506784693683954,
+            "vegetation_anomaly": 0.5361137924916193,
+            "radar_signature": 0.7480314618487881
+          },
+          "confidence": 0.8,
+          "site_tier": "Tertiary",
+          "bbox_wkt": "POLYGON((-67.82022688659458 -9.41707148149931, -67.8199723805786 -9.41707148149931, -67.8199723805786 -9.414675085102914, -67.82022688659458 -9.414675085102914, -67.82022688659458 -9.41707148149931))",
+          "radius_m": 133,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.1
+        },
+        {
+          "site_id": "site_hotspot_3_zone_1_0_candidate_3",
+          "center_lat": -9.415873283301112,
+          "center_lng": -67.8200996335866,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_3_optical.png"
+          },
+          "features": {
+            "defensive_rings": 1,
+            "central_platform": false,
+            "estimated_radius_m": 178,
+            "area_hectares": 39,
+            "geometric_regularity": 0.749310017384067,
+            "elevation_prominence": 0.7664869429472148,
+            "vegetation_anomaly": 0.3372854914673038,
+            "radar_signature": 0.4458893992114383
+          },
+          "confidence": 0.75,
+          "site_tier": "Secondary",
+          "bbox_wkt": "POLYGON((-67.82026994212362 -9.417476886904716, -67.81992932504957 -9.417476886904716, -67.81992932504957 -9.414269679697508, -67.82026994212362 -9.414269679697508, -67.82026994212362 -9.417476886904716))",
+          "radius_m": 178,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.12
+        },
+        {
+          "site_id": "site_hotspot_3_zone_2_0_candidate_3",
+          "center_lat": -9.373873283301112,
+          "center_lng": -67.8200996335866,
+          "scale": "site",
+          "images": {
+            "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_3_optical.png"
+          },
+          "features": {
+            "defensive_rings": 3,
+            "central_platform": true,
+            "estimated_radius_m": 153,
+            "area_hectares": 82,
+            "geometric_regularity": 0.7958241912544115,
+            "elevation_prominence": 0.4254449208729347,
+            "vegetation_anomaly": 0.6679027159565334,
+            "radar_signature": 0.6368116737328173
+          },
+          "confidence": 0.85,
+          "site_tier": "Secondary",
+          "bbox_wkt": "POLYGON((-67.82024667828591 -9.37525166167949, -67.81995258888728 -9.37525166167949, -67.81995258888728 -9.372494904922734, -67.82024667828591 -9.372494904922734, -67.82024667828591 -9.37525166167949))",
+          "radius_m": 153,
+          "confirmed": true,
+          "analysis_resolution_m": 1.95,
+          "ai_confidence": 0.12
+        }
+      ]
+    },
+    "discovery_candidates": [
+      {
+        "site_id": "site_hotspot_3_zone_1_2_candidate_1",
+        "center_lat": -9.415873283301112,
+        "center_lng": -67.73609963358659,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+        },
+        "features": {
+          "defensive_rings": 2,
+          "central_platform": true,
+          "estimated_radius_m": 175,
+          "area_hectares": 44,
+          "geometric_regularity": 0.7595072118996972,
+          "elevation_prominence": 0.676692695735289,
+          "vegetation_anomaly": 0.33834374740734635,
+          "radar_signature": 0.5435173401986794
+        },
+        "confidence": 0.85,
+        "site_tier": "Secondary",
+        "bbox_wkt": "POLYGON((-67.73626707175501 -9.417449859877689, -67.73593219541817 -9.417449859877689, -67.73593219541817 -9.414296706724535, -67.73626707175501 -9.414296706724535, -67.73626707175501 -9.417449859877689))",
+        "radius_m": 175,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.12
+      },
+      {
+        "site_id": "site_hotspot_3_zone_1_0_candidate_1",
+        "center_lat": -9.415873283301112,
+        "center_lng": -67.8200996335866,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+        },
+        "features": {
+          "defensive_rings": 2,
+          "central_platform": false,
+          "estimated_radius_m": 174,
+          "area_hectares": 145,
+          "geometric_regularity": 0.539706060027821,
+          "elevation_prominence": 0.4473163490142649,
+          "vegetation_anomaly": 0.37598078045832434,
+          "radar_signature": 0.7367133405127871
+        },
+        "confidence": 0.75,
+        "site_tier": "Primary",
+        "bbox_wkt": "POLYGON((-67.82026611496548 -9.41744085086868, -67.81993315220771 -9.41744085086868, -67.81993315220771 -9.414305715733544, -67.82026611496548 -9.414305715733544, -67.82026611496548 -9.41744085086868))",
+        "radius_m": 174,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.02
+      },
+      {
+        "site_id": "site_hotspot_3_zone_0_0_candidate_1",
+        "center_lat": -9.457873283301112,
+        "center_lng": -67.8200996335866,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_1_optical.png"
+        },
+        "features": {
+          "defensive_rings": 3,
+          "central_platform": true,
+          "estimated_radius_m": 129,
+          "area_hectares": 127,
+          "geometric_regularity": 0.6009628897770178,
+          "elevation_prominence": 0.7617637898250609,
+          "vegetation_anomaly": 0.5624405543740265,
+          "radar_signature": 0.4035603809645303
+        },
+        "confidence": 0.75,
+        "site_tier": "Primary",
+        "bbox_wkt": "POLYGON((-67.82022251133377 -9.459035445463273, -67.81997675583942 -9.459035445463273, -67.81997675583942 -9.45671112113895, -67.82022251133377 -9.45671112113895, -67.82022251133377 -9.459035445463273))",
+        "radius_m": 129,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.12
+      },
+      {
+        "site_id": "site_hotspot_3_zone_1_0_candidate_2",
+        "center_lat": -9.415873283301112,
+        "center_lng": -67.8200996335866,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_2_optical.png"
+        },
+        "features": {
+          "defensive_rings": 2,
+          "central_platform": false,
+          "estimated_radius_m": 133,
+          "area_hectares": 10,
+          "geometric_regularity": 0.6329350846603974,
+          "elevation_prominence": 0.7506784693683954,
+          "vegetation_anomaly": 0.5361137924916193,
+          "radar_signature": 0.7480314618487881
+        },
+        "confidence": 0.8,
+        "site_tier": "Tertiary",
+        "bbox_wkt": "POLYGON((-67.82022688659458 -9.41707148149931, -67.8199723805786 -9.41707148149931, -67.8199723805786 -9.414675085102914, -67.82022688659458 -9.414675085102914, -67.82022688659458 -9.41707148149931))",
+        "radius_m": 133,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.1
+      },
+      {
+        "site_id": "site_hotspot_3_zone_1_0_candidate_3",
+        "center_lat": -9.415873283301112,
+        "center_lng": -67.8200996335866,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_3_optical.png"
+        },
+        "features": {
+          "defensive_rings": 1,
+          "central_platform": false,
+          "estimated_radius_m": 178,
+          "area_hectares": 39,
+          "geometric_regularity": 0.749310017384067,
+          "elevation_prominence": 0.7664869429472148,
+          "vegetation_anomaly": 0.3372854914673038,
+          "radar_signature": 0.4458893992114383
+        },
+        "confidence": 0.75,
+        "site_tier": "Secondary",
+        "bbox_wkt": "POLYGON((-67.82026994212362 -9.417476886904716, -67.81992932504957 -9.417476886904716, -67.81992932504957 -9.414269679697508, -67.82026994212362 -9.414269679697508, -67.82026994212362 -9.417476886904716))",
+        "radius_m": 178,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.12
+      },
+      {
+        "site_id": "site_hotspot_3_zone_2_0_candidate_3",
+        "center_lat": -9.373873283301112,
+        "center_lng": -67.8200996335866,
+        "scale": "site",
+        "images": {
+          "optical": "/var/folders/vd/q2ctc77n677bzpxjjt7h6f600000gn/T/archaeology_temp_rebm0k1h/satellite_imagery/site/brazil_acre_site_candidate_3_optical.png"
+        },
+        "features": {
+          "defensive_rings": 3,
+          "central_platform": true,
+          "estimated_radius_m": 153,
+          "area_hectares": 82,
+          "geometric_regularity": 0.7958241912544115,
+          "elevation_prominence": 0.4254449208729347,
+          "vegetation_anomaly": 0.6679027159565334,
+          "radar_signature": 0.6368116737328173
+        },
+        "confidence": 0.85,
+        "site_tier": "Secondary",
+        "bbox_wkt": "POLYGON((-67.82024667828591 -9.37525166167949, -67.81995258888728 -9.37525166167949, -67.81995258888728 -9.372494904922734, -67.82024667828591 -9.372494904922734, -67.82024667828591 -9.37525166167949))",
+        "radius_m": 153,
+        "confirmed": true,
+        "analysis_resolution_m": 1.95,
+        "ai_confidence": 0.12
+      }
+    ],
+    "analysis_timestamp": "2025-05-25T13:50:35.246281"
+  }
+}
