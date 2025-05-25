@@ -201,7 +201,8 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             os.makedirs(discovery_dir, exist_ok=True)
             
             # Find relevant images for this discovery
-            lat, lng = discovery.get('center_lat', 0), discovery.get('center_lng', 0)
+            center_coords = discovery.get('center_coords', {})
+            lat, lng = center_coords.get('latitude', 0), center_coords.get('longitude', 0)
             images_copied = self._copy_discovery_images(discovery_dir, discovery, lat, lng, temp_base)
             if images_copied:
                 print(f"      📸 {len(images_copied)} images copied")
@@ -211,7 +212,11 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
             # Create discovery details file
             self._create_discovery_details(discovery_dir, discovery, i)
             
-            print(f"   🏛️ Discovery {i:02d}: {discovery.get('site_type', 'Unknown')} (confidence: {discovery.get('confidence', 0):.3f})")
+            # Extract site type and confidence correctly
+            site_classification = discovery.get('site_classification', {})
+            site_type = site_classification.get('type', 'Unknown')
+            confidence = discovery.get('confidence_score', 0)
+            print(f"   🏛️ Discovery {i:02d}: {site_type} (confidence: {confidence:.3f})")
         
         # Create discoveries overview
         self._create_discoveries_overview(top_discoveries)
@@ -299,40 +304,73 @@ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         """Create detailed discovery information file"""
         details_path = os.path.join(discovery_dir, "discovery_details.md")
         
+        # Extract coordinates from the correct structure
+        center_coords = discovery.get('center_coords', {})
+        latitude = center_coords.get('latitude', 0)
+        longitude = center_coords.get('longitude', 0)
+        confidence = discovery.get('confidence_score', 0)
+        
+        # Extract site details
+        site_classification = discovery.get('site_classification', {})
+        site_type = site_classification.get('type', 'Archaeological Site')
+        site_function = site_classification.get('function', 'Unknown')
+        
+        # Extract geographic context
+        geo_context = discovery.get('geographic_context', {})
+        region_name = geo_context.get('region_name', 'Unknown')
+        country = geo_context.get('country', 'Unknown')
+        
         with open(details_path, 'w') as f:
-            f.write(f"""# Discovery {discovery_num:02d}: {discovery.get('site_type', 'Archaeological Site')}
+            f.write(f"""# Discovery {discovery_num:02d}: {site_type}
 
 ## Location
-- **Latitude**: {discovery.get('center_lat', 0):.6f}
-- **Longitude**: {discovery.get('center_lng', 0):.6f}
-- **Confidence**: {discovery.get('confidence', 0):.3f}
+- **Latitude**: {latitude:.6f}
+- **Longitude**: {longitude:.6f}
+- **Confidence**: {confidence:.3f}
 
 ## Site Details
-- **Site ID**: {discovery.get('site_id', 'Unknown')}
-- **Site Type**: {discovery.get('site_type', 'Unknown')}
-- **Analysis Scale**: {discovery.get('analysis_scale', 'Unknown')}
-- **Source**: {discovery.get('source', 'Unknown')}
+- **Site ID**: {discovery.get('anomaly_id', 'Unknown')}
+- **Site Type**: {site_type}
+- **Site Function**: {site_function}
+- **Region**: {region_name}
+- **Country**: {country}
+- **Analysis Scale**: {discovery.get('analysis_details', {}).get('detection_scale', 'Unknown')}
+- **Source**: {discovery.get('discovery_method', 'Unknown')}
 
 ## Features Detected
 """)
             
-            # Add features if available
-            features = discovery.get('features_detected', [])
-            if features:
-                for feature in features:
-                    f.write(f"- {feature}\n")
+            # Add features from analysis details
+            analysis_details = discovery.get('analysis_details', {})
+            primary_indicators = analysis_details.get('primary_indicators', [])
+            secondary_evidence = analysis_details.get('secondary_evidence', [])
+            
+            if primary_indicators or secondary_evidence:
+                if primary_indicators:
+                    f.write("### Primary Indicators\n")
+                    for feature in primary_indicators:
+                        f.write(f"- {feature}\n")
+                if secondary_evidence:
+                    f.write("### Secondary Evidence\n")
+                    for feature in secondary_evidence:
+                        f.write(f"- {feature}\n")
             else:
                 f.write("- Archaeological anomaly detected\n")
                 f.write("- Landscape modification patterns\n")
                 f.write("- Geometric features\n")
             
-            # Add measurements if available
-            if 'diameter_meters' in discovery:
+            # Add measurements from key_features
+            key_features = discovery.get('key_features', {})
+            if key_features:
                 f.write(f"\n## Measurements\n")
-                f.write(f"- **Diameter**: {discovery['diameter_meters']} meters\n")
-            
-            if 'defensive_rings' in discovery:
-                f.write(f"- **Defensive Rings**: {discovery['defensive_rings']}\n")
+                if 'area_hectares' in key_features:
+                    f.write(f"- **Area**: {key_features['area_hectares']} hectares\n")
+                if 'defensive_rings' in key_features:
+                    f.write(f"- **Defensive Rings**: {key_features['defensive_rings']}\n")
+                if 'geometric_regularity' in key_features:
+                    f.write(f"- **Geometric Regularity**: {key_features['geometric_regularity']:.3f}\n")
+                if 'elevation_prominence' in key_features:
+                    f.write(f"- **Elevation Prominence**: {key_features['elevation_prominence']:.3f}\n")
             
             # Add images section
             f.write(f"\n## Images\n")
@@ -364,9 +402,17 @@ This directory contains detailed information about the top {len(discoveries)} ar
 """)
             
             for i, discovery in enumerate(discoveries, 1):
-                f.write(f"### [{i:02d}. {discovery.get('site_type', 'Archaeological Site')}](discovery_{i:02d}/)\n")
-                f.write(f"- **Location**: {discovery.get('center_lat', 0):.6f}, {discovery.get('center_lng', 0):.6f}\n")
-                f.write(f"- **Confidence**: {discovery.get('confidence', 0):.3f}\n")
+                # Extract data using correct structure
+                center_coords = discovery.get('center_coords', {})
+                latitude = center_coords.get('latitude', 0)
+                longitude = center_coords.get('longitude', 0)
+                confidence = discovery.get('confidence_score', 0)
+                site_classification = discovery.get('site_classification', {})
+                site_type = site_classification.get('type', 'Archaeological Site')
+                
+                f.write(f"### [{i:02d}. {site_type}](discovery_{i:02d}/)\n")
+                f.write(f"- **Location**: {latitude:.6f}, {longitude:.6f}\n")
+                f.write(f"- **Confidence**: {confidence:.3f}\n")
                 f.write(f"- **Details**: [discovery_{i:02d}/discovery_details.md](discovery_{i:02d}/discovery_details.md)\n\n")
             
             f.write(f"""## Analysis Method

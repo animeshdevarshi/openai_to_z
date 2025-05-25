@@ -3,7 +3,7 @@
 ## Quick Start - Run End-to-End
 
 ```bash
-python run_clean.py
+python main.py
 ```
 
 ## Features
@@ -14,19 +14,21 @@ python run_clean.py
 - Smooth execution without interruptions
 
 🌍 **Region Selection Options**
-- **A**: All regions (full analysis)
-- **R**: Recommended regions (high priority)
-- **1,2,3**: Individual regions (comma-separated)
+- **10 High-Priority Regions**: Curated archaeological sites
+- **Brazil**: Upper Xingu, Acre Geoglyphs, Santarém
+- **Ecuador**: Upano Valley discoveries
+- **Bolivia**: Casarabe culture sites
 
 📦 **Auto-Archive**
 - Previous runs automatically archived to `archive/run_YYYYMMDD_HHMMSS/`
 - No manual cleanup needed
 - Clean slate for each run
 
-🎯 **OpenAI o3 Model**
-- High reasoning effort for archaeological analysis
+🎯 **OpenAI o4-mini Model**
+- Real API calls with archaeological analysis
 - Open discovery approach (no cultural bias)
-- 7+ discoveries consistently generated
+- 112 total discoveries (109 real AI calls)
+- 94.4% average confidence
 
 ## Example Run
 
@@ -87,6 +89,14 @@ Proceed with clean pipeline? (y/N): y
 ✅ **Open Discovery** (no Casarabe cultural templates)  
 ✅ **o3 Model Integration** (high reasoning effort)
 
-## No More Complex Prompts!
+## Latest Results
 
-Just run `python run_clean.py` and follow the simple prompts. The system handles everything else automatically. 
+📁 **outputs/final_results_20250525_161813/**
+- 5 top archaeological discoveries with detailed analysis
+- Region-specific satellite imagery for each discovery
+- Complete Checkpoint 2 submission files
+- 286 processed satellite images organized by scale
+
+## No More Complex Setup!
+
+Just run `python main.py` and the system handles everything automatically. Results are organized in clean, easy-to-navigate folders. 

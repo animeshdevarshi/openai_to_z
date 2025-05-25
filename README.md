@@ -14,13 +14,13 @@ source /Users/animeshdevarshi/pythonenvs/venv/bin/activate
 python3 main.py
 ```
 
-## 📁 **Latest Results: outputs/final_results_20250525_115612/**
+## 📁 **Latest Results: outputs/final_results_20250525_161813/**
 
 ### 🎯 **Browse Your Results:**
-- **📖 Start Here**: `outputs/final_results_20250525_115612/README.md`
-- **🔍 Discoveries**: `outputs/final_results_20250525_115612/2_discoveries/`
-- **🏛️ Submission**: `outputs/final_results_20250525_115612/1_submission/`
-- **📸 Images**: `outputs/final_results_20250525_115612/3_processed_images/`
+- **📖 Start Here**: `outputs/final_results_20250525_161813/README.md`
+- **🔍 Discoveries**: `outputs/final_results_20250525_161813/2_discoveries/`
+- **🏛️ Submission**: `outputs/final_results_20250525_161813/1_submission/`
+- **📸 Images**: `outputs/final_results_20250525_161813/3_processed_images/`
 
 ## ✅ **Features**
 
@@ -43,10 +43,18 @@ python3 main.py
 ## 🎯 **Results Summary**
 
 ✅ **Checkpoint 2 Compliant**
-- 5+ archaeological discoveries identified
+- **112 total discoveries** (38 processor + 74 AI discoveries)
+- **109 real OpenAI API calls** using o4-mini-2025-04-16
+- **94.4% average confidence** across all discoveries
 - Two independent data sources (Sentinel-2 + Sentinel-1/ALOS)
 - All prompts logged and documented
 - Reproducibility verified (±50m tolerance)
+
+🏛️ **Top Archaeological Discoveries**
+- **Brazil Upper Xingu**: Archaeological Settlement (100% confidence)
+- **Ecuador Upano Valley**: Archaeological Settlement (100% confidence)  
+- **Ecuador Upano North**: Rectilinear Layout (92% confidence)
+- **Brazil Santarém**: Archaeological Settlements (90% confidence)
 
 ## 📂 **Clean Output Structure**
 
@@ -75,6 +83,20 @@ outputs/
 ✨ **No Messy Folders**: The system now uses temporary directories during processing and only creates the clean organized structure in `outputs/final_results_*`
 
 🗑️ **Auto-Cleanup**: All temporary processing folders are automatically removed after completion
+
+## 🔧 **Recent Improvements**
+
+✅ **Fixed Output Organization** (v2.1)
+- All files now properly captured from multiple temporary directories
+- Discovery details populated with real data instead of blanks
+- Region-specific images for each discovery (no more duplicate images)
+- Enhanced debugging and error reporting
+
+✅ **Enhanced Discovery Details**
+- Real GPS coordinates and confidence scores
+- Detailed archaeological features and measurements
+- Cultural context and time periods
+- Region-specific satellite imagery
 
 ## 🔧 **System Requirements**
 
