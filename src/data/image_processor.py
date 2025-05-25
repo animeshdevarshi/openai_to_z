@@ -13,7 +13,7 @@ import ee
 import json
 
 # Import from organized structure
-from config.output_paths import get_paths
+from src.config.output_paths import get_paths
 
 class EnhancedDataProcessor:
     """

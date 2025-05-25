@@ -1,107 +1,63 @@
 # output_config.py
-# Archaeological Discovery System - Output Configuration
-# Creates organized folder structure with meaningful naming conventions
+# Archaeological Discovery System - Clean Output Configuration
+# Uses temporary processing folders and creates only clean final results
 
 import os
+import tempfile
 from datetime import datetime
 
-# Base output directory
+# Clean output structure - only final results in outputs
 BASE_OUTPUT_DIR = "outputs"
-
-# Organized subdirectories with meaningful names
-SUBDIRS = {
-    'imagery': {
-        'root': 'satellite_imagery',
-        'regional': 'satellite_imagery/regional_50km',
-        'zone': 'satellite_imagery/zone_10km', 
-        'site': 'satellite_imagery/site_2km',
-        'composite': 'satellite_imagery/composite_maps'
-    },
-    'analysis': {
-        'root': 'archaeological_analysis',
-        'ai_responses': 'archaeological_analysis/ai_responses',
-        'discoveries': 'archaeological_analysis/discoveries',
-        'prompts': 'archaeological_analysis/prompts_database',
-        'patterns': 'archaeological_analysis/pattern_analysis'
-    },
-    'submissions': {
-        'root': 'competition_submissions',
-        'checkpoint2': 'competition_submissions/checkpoint2_final',
-        'final': 'competition_submissions/final_submission',
-        'drafts': 'competition_submissions/draft_versions'
-    },
-    'data': {
-        'root': 'processed_data',
-        'satellite': 'processed_data/satellite_downloads',
-        'archaeological': 'processed_data/archaeological_indices',
-        'regional_data': 'processed_data/regional_summaries'
-    },
-    'documentation': {
-        'root': 'project_documentation',
-        'methodology': 'project_documentation/methodology',
-        'validation': 'project_documentation/validation_reports',
-        'logs': 'project_documentation/pipeline_logs'
-    }
-}
 
 def get_paths() -> dict:
     """
-    Get all organized output paths with meaningful names
-    Creates directories if they don't exist
+    Get all paths for processing - uses temp directories during processing
+    Only the final organized results go to outputs/final_results_*
     """
     
     # Create timestamp for this session
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     
+    # Use temporary directories for intermediate processing
+    temp_base = tempfile.mkdtemp(prefix="archaeology_temp_")
+    
     paths = {
         'base': BASE_OUTPUT_DIR,
         'timestamp': timestamp,
+        'temp_base': temp_base,
         
-        # Main categories with meaningful names
-        'satellite_imagery': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['root']),
-        'archaeological_analysis': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['root']),
-        'competition_submissions': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['submissions']['root']),
-        'processed_data': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['data']['root']),
-        'project_documentation': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['documentation']['root']),
+        # Temporary processing paths (will be cleaned up)
+        'satellite_imagery': os.path.join(temp_base, 'satellite_imagery'),
+        'archaeological_analysis': os.path.join(temp_base, 'archaeological_analysis'),
+        'competition_submissions': os.path.join(temp_base, 'competition_submissions'),
+        'processed_data': os.path.join(temp_base, 'processed_data'),
         
-        # Imagery subcategories by scale
-        'regional_imagery': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['regional']),
-        'zone_imagery': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['zone']),
-        'site_imagery': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['site']),
-        'composite_maps': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['composite']),
+        # Imagery subcategories (temporary)
+        'regional_imagery': os.path.join(temp_base, 'satellite_imagery', 'regional'),
+        'zone_imagery': os.path.join(temp_base, 'satellite_imagery', 'zone'),
+        'site_imagery': os.path.join(temp_base, 'satellite_imagery', 'site'),
         
-        # Analysis subcategories
-        'ai_responses': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['ai_responses']),
-        'discoveries': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['discoveries']),
-        'prompts_database': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['prompts']),
-        'pattern_analysis': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['patterns']),
+        # Analysis subcategories (temporary)
+        'ai_responses': os.path.join(temp_base, 'archaeological_analysis', 'ai_responses'),
+        'discoveries': os.path.join(temp_base, 'archaeological_analysis', 'discoveries'),
+        'prompts_database': os.path.join(temp_base, 'archaeological_analysis', 'prompts_database'),
+        'pattern_analysis': os.path.join(temp_base, 'archaeological_analysis', 'pattern_analysis'),
         
-        # Submission subcategories
-        'checkpoint2_final': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['submissions']['checkpoint2']),
-        'final_submission': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['submissions']['final']),
-        'draft_submissions': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['submissions']['drafts']),
+        # Submission subcategories (temporary)
+        'checkpoint2_final': os.path.join(temp_base, 'competition_submissions', 'checkpoint2_final'),
+        'final_submission': os.path.join(temp_base, 'competition_submissions', 'final_submission'),
         
-        # Data subcategories  
-        'satellite_downloads': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['data']['satellite']),
-        'archaeological_indices': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['data']['archaeological']),
-        'regional_summaries': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['data']['regional_data']),
-        
-        # Documentation subcategories
-        'methodology_docs': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['documentation']['methodology']),
-        'validation_reports': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['documentation']['validation']),
-        'pipeline_logs': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['documentation']['logs']),
-        
-        # Legacy compatibility paths (but with better names)
-        'images': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['root']),  # For backward compatibility
-        'enhanced_images': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['imagery']['root']),
-        'analysis_results': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['root']),
-        'submissions': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['submissions']['root']),
-        'leverage_responses': os.path.join(BASE_OUTPUT_DIR, SUBDIRS['analysis']['ai_responses'], "leverage_analysis.json")
+        # Legacy compatibility paths (temporary)
+        'images': os.path.join(temp_base, 'satellite_imagery'),
+        'enhanced_images': os.path.join(temp_base, 'satellite_imagery'),
+        'analysis_results': os.path.join(temp_base, 'archaeological_analysis'),
+        'submissions': os.path.join(temp_base, 'competition_submissions'),
+        'leverage_responses': os.path.join(temp_base, 'archaeological_analysis', 'ai_responses', "leverage_analysis.json")
     }
     
-    # Create all directories
+    # Create all temporary directories
     for path_key, path_value in paths.items():
-        if path_key not in ['timestamp', 'leverage_responses'] and not path_value.endswith('.json'):
+        if path_key not in ['timestamp', 'leverage_responses', 'base', 'temp_base'] and not path_value.endswith('.json'):
             os.makedirs(path_value, exist_ok=True)
     
     return paths
@@ -165,24 +121,35 @@ def get_discovery_catalog_path(timestamp: str = None) -> str:
 
 def clear_outputs_for_fresh_run():
     """
-    Clear all output files for a completely fresh run
-    Keeps directory structure but removes files
+    Clear only old temporary files and final_results (keep directory clean)
+    """
+    import shutil
+    import glob
+    
+    print(f"🧹 Preparing clean workspace...")
+    
+    # Clean up any old temporary archaeology folders
+    temp_dirs = glob.glob("/tmp/archaeology_temp_*")
+    for temp_dir in temp_dirs:
+        try:
+            shutil.rmtree(temp_dir)
+        except:
+            pass
+    
+    print("✅ Temporary directories cleared")
+
+def cleanup_temp_directories(temp_base: str):
+    """
+    Clean up temporary directories after processing is complete
     """
     import shutil
     
-    if os.path.exists(BASE_OUTPUT_DIR):
-        print(f"🧹 Clearing outputs directory: {BASE_OUTPUT_DIR}")
-        shutil.rmtree(BASE_OUTPUT_DIR)
-        print("✅ All outputs cleared")
-    
-    # Recreate directory structure
-    paths = get_paths()
-    print("📁 Directory structure recreated")
-    
-    # Also clear pipeline progress
-    if os.path.exists('pipeline_progress.json'):
-        os.remove('pipeline_progress.json')
-        print("🔄 Pipeline progress cleared")
+    if temp_base and os.path.exists(temp_base):
+        try:
+            shutil.rmtree(temp_base)
+            print(f"🧹 Cleaned up temporary processing directory")
+        except Exception as e:
+            print(f"⚠️ Could not clean temp directory: {e}")
 
 def create_submission_package(timestamp: str = None) -> dict:
     """
@@ -198,37 +165,24 @@ def create_submission_package(timestamp: str = None) -> dict:
         'ai_analysis': get_ai_analysis_path(timestamp),
         'discovery_catalog': get_discovery_catalog_path(timestamp),
         'timestamp': timestamp,
-        'submission_folder': get_paths()['checkpoint2_final']
+        'package_directory': f"checkpoint2_complete_{timestamp}"
     }
     
     return package
 
 def show_organized_structure():
-    """Display the new organized structure with meaningful names"""
-    paths = get_paths()
-    
-    print("\n📁 ARCHAEOLOGICAL DISCOVERY SYSTEM - OUTPUT STRUCTURE")
-    print("=" * 60)
-    print(f"📂 {BASE_OUTPUT_DIR}/")
-    
-    structure_display = {
-        'satellite_imagery/': ['regional_50km/', 'zone_10km/', 'site_2km/', 'composite_maps/'],
-        'archaeological_analysis/': ['ai_responses/', 'discoveries/', 'prompts_database/', 'pattern_analysis/'],
-        'competition_submissions/': ['checkpoint2_final/', 'final_submission/', 'draft_versions/'],
-        'processed_data/': ['satellite_downloads/', 'archaeological_indices/', 'regional_summaries/'],
-        'project_documentation/': ['methodology/', 'validation_reports/', 'pipeline_logs/']
-    }
-    
-    for main_folder, subfolders in structure_display.items():
-        print(f"   📁 {main_folder}")
-        for subfolder in subfolders:
-            print(f"      📁 {subfolder}")
-    
-    print(f"\n✅ All directories ready with meaningful names")
-    print(f"🎯 Checkpoint 2 Final: {paths['checkpoint2_final']}")
-    print(f"📊 Archaeological Analysis: {paths['archaeological_analysis']}")
-    print(f"📸 Satellite Imagery: {paths['satellite_imagery']}")
-    print(f"📋 Documentation: {paths['project_documentation']}")
+    """Show the organized structure that will be created"""
+    print("📁 Clean Output Structure:")
+    print("=" * 30)
+    print("outputs/")
+    print("└── final_results_YYYYMMDD_HHMMSS/")
+    print("    ├── 1_submission/          # Competition files")
+    print("    ├── 2_discoveries/         # Top discoveries with images")
+    print("    ├── 3_processed_images/    # All satellite imagery")
+    print("    └── 4_metadata/            # Technical analysis")
+    print()
+    print("🧹 Temporary processing folders are automatically cleaned up")
+    print("✨ Only clean organized results remain")
 
 if __name__ == "__main__":
     show_organized_structure() 

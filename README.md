@@ -1,118 +1,98 @@
-# 🏛️ Amazon Archaeological Discovery System
+# Clean Archaeological Discovery System
 
-**OpenAI to Z Challenge - Checkpoint 2 Solution**
+## 🏛️ OpenAI to Z Challenge - Checkpoint 2 Solution
 
-Multi-scale AI-powered archaeological site detection in the Amazon rainforest using satellite imagery and cultural knowledge.
+A streamlined archaeological discovery system using AI-powered satellite analysis to identify Amazon archaeological sites.
 
-## 🎯 **What This System Does**
-
-Discovers pre-Columbian archaeological sites across the Amazon using:
-- **Multi-scale analysis**: 50km → 10km → 2km progressive zoom for network detection
-- **Dual-source satellite data**: Optical (Sentinel-2) + Radar (PALSAR) for comprehensive coverage
-- **AI interpretation** with archaeological domain knowledge (Casarabe culture, earthwork patterns)
-- **Enhanced geographic context**: Country, region, cultural attribution for each discovery
-
-## ⚡ **Quick Evaluation**
+## 🚀 Quick Start
 
 ```bash
-# Run the complete system
-python main.py
+# 1. Activate environment
+source /Users/animeshdevarshi/pythonenvs/venv/bin/activate
 
-# Check results
-ls submissions/latest/
-# → checkpoint2_submission_*.json (competition file)
-# → checkpoint2_summary_*.md (human-readable report)
+# 2. Run the complete analysis
+python3 main.py
 ```
 
-**Expected runtime**: ~15-30 minutes  
-**Expected output**: 5+ archaeological discoveries with detailed context
+## 📁 **Latest Results: outputs/final_results_20250525_115612/**
 
-## 🏛️ **Sample Discovery Output**
+### 🎯 **Browse Your Results:**
+- **📖 Start Here**: `outputs/final_results_20250525_115612/README.md`
+- **🔍 Discoveries**: `outputs/final_results_20250525_115612/2_discoveries/`
+- **🏛️ Submission**: `outputs/final_results_20250525_115612/1_submission/`
+- **📸 Images**: `outputs/final_results_20250525_115612/3_processed_images/`
 
-```json
-{
-  "anomaly_id": "AMAZON_BR_Primary_001",
-  "geographic_context": {
-    "country": "Brazil",
-    "region_name": "Upper Xingu Basin, Brazil",
-    "river_basin": "Xingu River Basin",
-    "nearest_major_city": "Canarana"
-  },
-  "cultural_context": {
-    "primary_culture": "Upper Xingu cultural complex",
-    "time_period": "800-1500 CE (Late Period)",
-    "cultural_affiliation": "Upper Xingu cultural complex"
-  },
-  "site_classification": {
-    "tier": "Primary",
-    "function": "Upper Xingu plaza village complex",
-    "complexity_level": "High complexity"
-  },
-  "coordinates": {
-    "center_lat": -13.2456,
-    "center_lng": -53.1789,
-    "confidence": 0.85
-  }
-}
-```
+## ✅ **Features**
 
-## 🏆 **Checkpoint 2 Compliance**
+🌍 **Clean Interface**
+- Simple region selection (1-4 regions available)
+- Auto-archive previous runs
+- Smooth execution without interruptions
 
-- ✅ **Enhanced geographic context** (Country, region, river basin details)
-- ✅ **Cultural attribution** (Archaeological cultures, time periods)  
-- ✅ **Five anomaly footprints** (Archaeological sites with precise coordinates)
-- ✅ **Dataset IDs logged** (Sentinel-2, PALSAR data sources)
-- ✅ **OpenAI prompts logged** (Scale-specific archaeological analysis)
-- ✅ **Reproducibility verified** (±50m tolerance)
-- ✅ **Discovery leverage** (Pattern-based re-prompting)
+🤖 **AI-Powered Analysis** 
+- OpenAI o3 model with high reasoning effort
+- Open discovery approach (no cultural bias)
+- Multi-scale analysis: 50km → 10km → 2km
 
-## 📁 **Output Structure**
+📦 **Organized Results**
+- Clean 4-folder structure
+- Individual discovery details with images
+- Easy navigation and sharing
+- **No messy temporary folders created**
+
+## 🎯 **Results Summary**
+
+✅ **Checkpoint 2 Compliant**
+- 5+ archaeological discoveries identified
+- Two independent data sources (Sentinel-2 + Sentinel-1/ALOS)
+- All prompts logged and documented
+- Reproducibility verified (±50m tolerance)
+
+## 📂 **Clean Output Structure**
 
 ```
-submissions/latest/          # Competition-ready files
-├── checkpoint2_submission_*.json   # Main submission
-├── checkpoint2_summary_*.md        # Human-readable report
-├── latest_submission.json → [symlink]
-└── latest_summary.md → [symlink]
-
-outputs/archaeological_analysis/    # Detailed analysis
-├── ai_responses/           # AI interpretation results
-├── discoveries/            # Enhanced discovery data
-└── prompts_database/       # Prompt tracking for compliance
+outputs/
+└── final_results_YYYYMMDD_HHMMSS/
+    ├── 1_submission/          # Competition files (JSON + MD)
+    ├── 2_discoveries/         # Top discoveries with images
+    │   ├── discovery_01/      # Individual discovery details
+    │   ├── discovery_02/      # Coordinates, images, analysis
+    │   └── ...
+    ├── 3_processed_images/    # All satellite imagery
+    │   ├── regional/          # 50km archaeological heatmaps
+    │   ├── zone/              # 10km landscape analysis  
+    │   └── site/              # 2km high-resolution sites
+    └── 4_metadata/            # Technical analysis data
 ```
 
-## 🔧 **Prerequisites**
+## 🛠️ **Additional Tools**
 
-1. **Python 3.8+**
-2. **Google Earth Engine account** (approved access required)
-3. **Dependencies**: `pip install -r requirements.txt`
+- `organize_existing_results.py` - Organize existing messy results  
+- `cleanup_workspace.py` - Clean old folders (optional)
 
-Optional:
-- **OpenAI API key** (system uses mock responses for testing)
+## 🧹 **Clean Processing**
 
-## 📚 **Scientific Foundation**
+✨ **No Messy Folders**: The system now uses temporary directories during processing and only creates the clean organized structure in `outputs/final_results_*`
 
-Based on recent archaeological research:
-- **Prümers et al. 2022** - Casarabe culture settlement networks
-- **Multi-scale remote sensing archaeology**
-- **Amazon pre-Columbian urban planning patterns**
+🗑️ **Auto-Cleanup**: All temporary processing folders are automatically removed after completion
 
-## 🎉 **Success Indicators**
+## 🔧 **System Requirements**
 
-You know it worked when you see:
-```
-🎉 CHECKPOINT 2 COMPLIANCE: ✅ PASS
-✅ Submission package ready!
+- Python 3.8+
+- Google Earth Engine access
+- OpenAI API key
+- Virtual environment
 
-Enhanced discoveries include:
-✅ Geographic context (Brazil/Peru/Colombia regions)
-✅ Cultural context (Archaeological cultures & time periods)
-✅ Site classification (Function, complexity, preservation)
-✅ Research potential (Excavation priority, conservation urgency)
-```
+## 📖 **Documentation**
+
+- Individual discovery details in `2_discoveries/`
+- Technical metadata in `4_metadata/`
+- Complete submission files in `1_submission/`
 
 ---
 
-**Ready to evaluate?** Run `python main.py` and check `submissions/latest/` for results.
+**🎉 Single command to discover archaeological sites in the Amazon!**
 
-For detailed setup instructions, see [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md). 
+```bash
+python3 main.py
+``` 

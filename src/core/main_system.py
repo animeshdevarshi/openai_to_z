@@ -10,12 +10,12 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 # Import from organized structure
-from data.satellite_acquisition import EnhancedDataAcquisition
-from data.image_processor import EnhancedDataProcessor  
-from analysis.ai_archaeological_analyzer import EnhancedAIAnalyzer
-from analysis.results_manager import EnhancedResultsManager
-from config.regions import load_regions_from_file
-from config.output_paths import get_paths, clear_outputs_for_fresh_run
+from src.data.satellite_acquisition import EnhancedDataAcquisition
+from src.data.image_processor import EnhancedDataProcessor  
+from src.analysis.ai_archaeological_analyzer import EnhancedAIAnalyzer
+from src.analysis.results_manager import EnhancedResultsManager
+from src.config.regions import load_regions_from_file
+from src.config.output_paths import get_paths, clear_outputs_for_fresh_run
 
 class ArchaeologicalDiscoverySystem:
     """
@@ -43,6 +43,8 @@ class ArchaeologicalDiscoverySystem:
         
         # Initialize organized output paths
         self.paths = get_paths()
+        # Extract temp_base for organizer cleanup
+        self.temp_base = self.paths.get('temp_base')
         
         # Initialize components with new names
         self.data_acquisition = EnhancedDataAcquisition()
@@ -63,6 +65,9 @@ class ArchaeologicalDiscoverySystem:
         print("🔄 Checking for previous progress...")
         self.detect_existing_progress()
         print()
+        
+        # For clean interface support
+        self.selected_regions = None
 
     def load_pipeline_progress(self) -> Dict:
         """Load pipeline progress from file"""
@@ -295,6 +300,11 @@ class ArchaeologicalDiscoverySystem:
         """
         Let user select which regions to analyze
         """
+        # Use pre-selected regions if available (for clean interface)
+        if self.selected_regions:
+            print(f"🗺️ Using pre-selected regions: {', '.join(self.selected_regions)}")
+            return self.selected_regions
+        
         print(f"🗺️ REGION SELECTION")
         print("-" * 30)
         
@@ -959,6 +969,30 @@ class ArchaeologicalDiscoverySystem:
                 print(f"   • {warning}")
         
         print(f"\n🎯 Ready for competition submission!")
+
+    # Clean interface methods for streamlined execution
+    def setup_authentication(self) -> bool:
+        """Simple authentication setup for clean interface"""
+        return self.step_1_setup_and_authentication()
+    
+    def load_satellite_data(self) -> bool:
+        """Load satellite data for selected regions"""
+        if not self.selected_regions:
+            # Use default selection if not set
+            self.selected_regions = ['brazil_acre']  # Default to a working region
+        return self.step_2_load_dual_source_data(max_regions=len(self.selected_regions))
+    
+    def process_multi_scale(self) -> bool:
+        """Process multi-scale analysis"""
+        return self.step_3_multi_scale_processing()
+    
+    def run_ai_analysis(self) -> bool:
+        """Run AI analysis pipeline"""
+        return self.step_4_ai_analysis_pipeline()
+    
+    def create_submission(self) -> bool:
+        """Create checkpoint 2 submission"""
+        return self.step_5_create_checkpoint2_submission()
 
 
 def main():

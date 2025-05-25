@@ -13,7 +13,7 @@ import time
 import ee
 
 # Import from organized structure  
-from config.regions import SimpleRegionConfig
+from src.config.regions import SimpleRegionConfig
 
 class EnhancedDataAcquisition:
     """

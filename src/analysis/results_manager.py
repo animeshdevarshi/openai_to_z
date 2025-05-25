@@ -8,7 +8,7 @@ import numpy as np
 from datetime import datetime
 from typing import List, Dict, Optional
 from dataclasses import dataclass
-from config.output_paths import get_paths, get_checkpoint2_submission_path, get_checkpoint2_summary_path
+from src.config.output_paths import get_paths, get_checkpoint2_submission_path, get_checkpoint2_summary_path
 
 @dataclass
 class ArchaeologicalSite:
